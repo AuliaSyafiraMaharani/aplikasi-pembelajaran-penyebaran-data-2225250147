@@ -1,21 +1,22 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { BookOpen, Calculator, Award, ChevronRight, RefreshCw, ArrowRight, User, Play, Sparkles, CheckCircle, XCircle, FileText, HelpCircle, Volume2, VolumeX } from 'lucide-react';
+// Import file audio lokal dari folder src/assets/instrumen-belajar.mp3
+import musicFile from './assets/instrumen-belajar.mp3';
 
 export default function App() {
   const [page, setPage] = useState('welcome');
   const [studentName, setStudentName] = useState('');
   
-  // State Kontrol Musik
+  // State Kontrol Musik menggunakan file lokal
   const [isPlayingMusic, setIsPlayingMusic] = useState(false);
   const audioRef = useRef(null);
 
-  // Menggunakan file gambar latar belakang lokal dari folder public
-  const bgImageUrl = "/bg-school.jpg";
+  const bgImageUrl = "https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=1600&auto=format&fit=crop";
 
   useEffect(() => {
-    audioRef.current = new Audio('https://assets.mixkit.co/music/preview/mixkit-spirit-in-the-woods-139.mp3');
+    audioRef.current = new Audio(musicFile);
     audioRef.current.loop = true;
-    audioRef.current.volume = 0.4;
+    audioRef.current.volume = 0.5;
 
     return () => {
       if (audioRef.current) {
@@ -30,6 +31,8 @@ export default function App() {
     if (page === 'welcome' || page === 'home') {
       if (isPlayingMusic) {
         audioRef.current.play().catch(e => console.log("Audio autoplay dibatasi browser"));
+      } else {
+        audioRef.current.pause();
       }
     } else {
       audioRef.current.pause();
@@ -42,7 +45,7 @@ export default function App() {
       audioRef.current.pause();
       setIsPlayingMusic(false);
     } else {
-      audioRef.current.play();
+      audioRef.current.play().catch(e => console.log("Gagal memutar audio"));
       setIsPlayingMusic(true);
     }
   };
@@ -156,16 +159,16 @@ export default function App() {
   return (
     <div className="relative min-h-screen text-slate-800 font-sans flex flex-col justify-between overflow-x-hidden">
       
-      {/* BACKGROUND GAMBAR LOKAL BURAM (BLURRED BACKGROUND) */}
+      {/* BACKGROUND GAMBAR BURAM (BLURRED BACKGROUND) */}
       <div 
         className="fixed inset-0 z-0 bg-cover bg-center bg-no-repeat filter blur-md scale-105 opacity-35"
         style={{ backgroundImage: `url(${bgImageUrl})` }}
       />
 
-      {/* OVERLAY WARNA LEMBUT (#FFF3E3) AGAR KONTEN UTAMA TETAP JELAS */}
+      {/* OVERLAY WARNA LEMBUT (#FFF3E3) */}
       <div className="fixed inset-0 z-0 pointer-events-none" style={{ backgroundColor: '#FFF3E3', opacity: 0.75 }} />
 
-      {/* KONTEN APLIKASI (Z-INDEX 10) */}
+      {/* KONTEN APLIKASI */}
       <div className="relative z-10 flex flex-col min-h-screen justify-between">
         
         {/* Tombol Musik Mengambang */}
@@ -181,7 +184,8 @@ export default function App() {
 
         {page === 'welcome' && (
           <div className="flex-1 flex items-center justify-center p-4">
-            <div className="max-w-md w-full bg-white/90 backdrop-blur-md rounded-3xl shadow-2xl p-8 border-4 text-center space-y-6 relative overflow-hidden" style={{ borderColor: '#9FA0FF' }}>
+            {/* KOTAK WELCOME WARNA PINK LEMBUT (#FFF3E3) */}
+            <div className="max-w-md w-full rounded-3xl shadow-2xl p-8 border-4 text-center space-y-6 relative overflow-hidden" style={{ backgroundColor: '#FFF3E3', borderColor: '#9FA0FF' }}>
               
               <div className="absolute -top-3 -right-3 text-white px-4 py-1 rounded-full text-xs font-bold transform rotate-12 shadow-sm" style={{ backgroundColor: '#FF7171' }}>
                 S = √(Σ(x-x̄)²/n)
@@ -190,12 +194,13 @@ export default function App() {
                 J = Xmax - Xmin
               </div>
 
-              <div className="relative w-40 h-40 mx-auto mt-2">
-                <img src="https://illustrations.popsy.co/amber/student-with-diploma.svg" alt="Siswa SMP" className="w-full h-full object-contain drop-shadow-md" />
+              {/* EMOJI KARAKTER ANAK-ANAK ANIMASI DI TENGAH */}
+              <div className="relative w-32 h-32 mx-auto mt-2 flex items-center justify-center bg-white/80 rounded-full shadow-inner border-4" style={{ borderColor: '#9FA0FF' }}>
+                <span className="text-5xl animate-bounce">🧑‍🎓🎒✨</span>
               </div>
 
               <div>
-                <div className="inline-flex items-center gap-1 text-xs font-bold px-3 py-1 rounded-full mb-2" style={{ backgroundColor: '#D5E8E6', color: '#1e293b' }}>
+                <div className="inline-flex items-center gap-1 text-xs font-bold px-3 py-1 rounded-full mb-2 bg-white text-slate-800 shadow-sm">
                   <Sparkles size={14} className="text-amber-500" /> Matematika SMP Kelas VIII
                 </div>
                 <h1 className="text-3xl font-extrabold tracking-tight" style={{ color: '#9FA0FF' }}>Statistika Ceria</h1>
@@ -268,7 +273,7 @@ export default function App() {
                       <h2 className="text-2xl font-black mb-1">Selamat Datang, {studentName}! 👋</h2>
                       <p className="text-slate-700 text-sm font-medium">Ikuti tahapan belajar di bawah ini secara berurutan untuk hasil yang maksimal.</p>
                     </div>
-                    <img src="https://illustrations.popsy.co/amber/idea.svg" alt="Belajar" className="w-24 h-24 object-contain" />
+                    <span className="text-5xl animate-pulse">🎒📚</span>
                   </div>
 
                   <div className="grid md:grid-cols-3 gap-4">
