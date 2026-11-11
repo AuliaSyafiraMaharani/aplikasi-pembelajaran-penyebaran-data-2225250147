@@ -29,7 +29,6 @@ export default function App() {
 
   useEffect(() => {
     if (!audioRef.current) return;
-    // Musik menyala di welcome, home, materi, panduan-kalkulator, dan kalkulator. Mati di pretest, latihan, posttest, evaluasi.
     const isFocusPage = page === 'pretest' || page === 'latihan' || page === 'posttest' || page === 'evaluasi';
     
     if (!isFocusPage) {
@@ -188,7 +187,6 @@ export default function App() {
 
         {page === 'welcome' && (
           <div className="flex-1 flex items-center justify-center p-4">
-            {/* KOTAK WELCOME DENGAN WARNA FCF9EC DAN BORDER 00105B */}
             <div className="max-w-md w-full rounded-3xl shadow-2xl p-8 border-4 text-center space-y-6 relative overflow-hidden backdrop-blur-sm" style={{ backgroundColor: '#FCF9EC', borderColor: '#00105B' }}>
               
               <div className="absolute -top-3 -right-3 text-white px-4 py-1 rounded-full text-xs font-extrabold transform rotate-12 shadow-sm" style={{ backgroundColor: '#00105B' }}>
@@ -198,7 +196,6 @@ export default function App() {
                 J = Xmax - Xmin
               </div>
 
-              {/* EMOJI KARAKTER ANAK-ANAK ANIMASI DI TENGAH */}
               <div className="relative w-32 h-32 mx-auto mt-2 flex items-center justify-center rounded-full shadow-inner border-4" style={{ backgroundColor: '#C9B5E0', borderColor: '#6061B6' }}>
                 <span className="text-5xl animate-bounce">🧑‍🎓🎒✨</span>
               </div>
@@ -248,7 +245,6 @@ export default function App() {
 
         {page !== 'welcome' && (
           <div className="flex flex-col flex-1 justify-between">
-            {/* HEADER DENGAN WARNA #00105B */}
             <header className="text-white shadow-md p-3 sticky top-0 z-50 backdrop-blur-md bg-opacity-95" style={{ backgroundColor: '#00105B' }}>
               <div className="max-w-4xl mx-auto flex flex-wrap justify-between items-center gap-2">
                 <div>
@@ -273,7 +269,6 @@ export default function App() {
               
               {page === 'home' && (
                 <div className="space-y-6">
-                  {/* KOTAK MENU UTAMA FCF9EC DENGAN BORDER 00105B */}
                   <div className="p-6 rounded-3xl shadow-lg text-slate-900 flex flex-col md:flex-row items-center justify-between gap-4 border-2" style={{ backgroundColor: '#FCF9EC', borderColor: '#00105B' }}>
                     <div>
                       <h2 className="text-2xl font-black mb-1" style={{ color: '#00105B' }}>Selamat Datang, {studentName}! 👋</h2>
@@ -343,40 +338,99 @@ export default function App() {
                 </div>
               )}
 
+              {/* HALAMAN MATERI PEMBELAJARAN LENGKAP DENGAN PENJELASAN KONSEP & CONTOH SOAL */}
               {page === 'materi' && (
                 <div className="space-y-6">
-                  <div className="p-6 rounded-3xl shadow-lg border-2 space-y-6" style={{ backgroundColor: '#FCF9EC', borderColor: '#00105B' }}>
-                    <div className="flex justify-between items-center">
+                  <div className="p-6 rounded-3xl shadow-lg border-2 space-y-6 text-slate-900" style={{ backgroundColor: '#FCF9EC', borderColor: '#00105B' }}>
+                    <div className="flex justify-between items-center border-b pb-4">
                       <div>
-                        <h2 className="text-2xl font-black" style={{ color: '#00105B' }}>Modul Materi Pembelajaran</h2>
-                        <p className="text-slate-600 text-sm font-medium">Penyebaran Data Statistika Kelas VIII SMP</p>
+                        <h2 className="text-2xl font-black" style={{ color: '#00105B' }}>📖 Modul Materi: Penyebaran Data Statistika</h2>
+                        <p className="text-xs font-semibold text-slate-600 mt-0.5">Matematika SMP Kelas VIII • Memahami Ukuran Penyebaran Data</p>
                       </div>
                       <button onClick={() => setPage('panduan-kalkulator')} className="text-xs font-bold px-4 py-2.5 rounded-xl text-white shadow-md transition hover:opacity-95" style={{ backgroundColor: '#6061B6' }}>Baca Panduan Kalkulator →</button>
                     </div>
 
-                    <div className="grid md:grid-cols-2 gap-4">
-                      <div className="p-5 rounded-2xl border-2 bg-white shadow-sm" style={{ borderColor: '#00105B' }}>
-                        <h3 className="font-extrabold text-lg mb-1" style={{ color: '#00105B' }}>1. Jangkauan (Range)</h3>
-                        <p className="text-xs text-slate-700 font-medium">Selisih antara nilai terbesar (Xmax) dan terkecil (Xmin).</p>
-                        <code className="block bg-slate-50 p-2.5 mt-3 rounded-xl text-xs font-mono font-extrabold text-center border shadow-inner" style={{ borderColor: '#00105B', color: '#00105B' }}>J = Xmax - Xmin</code>
-                      </div>
+                    {/* Pengantar Konsep */}
+                    <div className="p-4 rounded-2xl bg-white border-2 border-indigo-100 shadow-sm space-y-2">
+                      <h3 className="font-extrabold text-sm text-indigo-950 flex items-center gap-1.5">
+                        <Sparkles size={16} className="text-amber-500" /> Mengapa Kita Harus Mempelajari Penyebaran Data?
+                      </h3>
+                      <p className="text-xs text-slate-700 leading-relaxed font-medium">
+                        Ukuran pemusatan data (seperti Rata-rata/Mean, Median, Modus) terkadang belum cukup untuk menggambarkan karakteristik suatu kelompok data secara utuh. Kita memerlukan <strong>Ukuran Penyebaran Data (Dispersi)</strong> untuk melihat seberapa jauh nilai-nilai data menyebar atau bervariasi dari nilai rata-ratanya.
+                      </p>
+                    </div>
 
-                      <div className="p-5 rounded-2xl border-2 bg-white shadow-sm" style={{ borderColor: '#6061B6' }}>
-                        <h3 className="font-extrabold text-lg mb-1 text-indigo-700">2. Simpangan Kuartil</h3>
-                        <p className="text-xs text-slate-700 font-medium">Setengah dari jangkauan interkuartil (Q3 - Q1).</p>
-                        <code className="block bg-slate-50 p-2.5 mt-3 rounded-xl text-xs font-mono font-extrabold text-center border shadow-inner text-indigo-700" style={{ borderColor: '#6061B6' }}>Qd = ½ (Q3 - Q1)</code>
+                    {/* 1. Jangkauan (Range) */}
+                    <div className="p-5 rounded-2xl border-2 bg-white shadow-sm space-y-3" style={{ borderColor: '#00105B' }}>
+                      <div className="flex items-center justify-between">
+                        <h3 className="font-extrabold text-base" style={{ color: '#00105B' }}>1. Jangkauan (Range / J)</h3>
+                        <span className="text-xs font-bold px-2.5 py-1 rounded-lg bg-indigo-50 text-indigo-900">Ukuran Sebaran Sederhana</span>
                       </div>
-
-                      <div className="p-5 rounded-2xl border-2 bg-white shadow-sm" style={{ borderColor: '#6061B6' }}>
-                        <h3 className="font-extrabold text-lg mb-1 text-indigo-700">3. Simpangan Rata-rata</h3>
-                        <p className="text-xs text-slate-700 font-medium">Rata-rata jarak mutlak tiap data terhadap rata-rata.</p>
-                        <code className="block bg-slate-50 p-2.5 mt-3 rounded-xl text-xs font-mono font-extrabold text-center border shadow-inner text-indigo-700" style={{ borderColor: '#6061B6' }}>SR = (Σ |xi - x̄|) / n</code>
+                      <p className="text-xs text-slate-700 leading-relaxed">
+                        Jangkauan adalah selisih antara nilai data terbesar dengan nilai data terkecil dalam suatu kelompok data. Semakin kecil jangkauan, maka data semakin merata/seragam.
+                      </p>
+                      <div className="p-3 rounded-xl bg-indigo-950 text-white font-mono text-xs font-bold text-center tracking-wider shadow-inner">
+                        Rumus: J = Xmax - Xmin
                       </div>
+                      <div className="text-xs bg-slate-50 p-3 rounded-xl border space-y-1">
+                        <p className="font-bold text-slate-800">Contoh Soal:</p>
+                        <p className="text-slate-600">Diketahui data nilai ulangan matematika: 6, 8, 5, 9, 7, 10. Tentukan jangkauannya!</p>
+                        <p className="text-indigo-900 font-semibold pt-1">Penyelesaian: Urutkan data (5, 6, 7, 8, 9, 10). Xmax = 10 dan Xmin = 5. Maka J = 10 - 5 = 5.</p>
+                      </div>
+                    </div>
 
-                      <div className="p-5 rounded-2xl border-2 bg-white shadow-sm" style={{ borderColor: '#00105B' }}>
-                        <h3 className="font-extrabold text-lg mb-1" style={{ color: '#00105B' }}>4. Simpangan Baku</h3>
-                        <p className="text-xs text-slate-700 font-medium">Akar kuadrat dari varians (ragam) sebaran data.</p>
-                        <code className="block bg-slate-50 p-2.5 mt-3 rounded-xl text-xs font-mono font-extrabold text-center border shadow-inner" style={{ borderColor: '#00105B', color: '#00105B' }}>S = √( Σ(xi - x̄)² / n )</code>
+                    {/* 2. Simpangan Kuartil (Qd) */}
+                    <div className="p-5 rounded-2xl border-2 bg-white shadow-sm space-y-3" style={{ borderColor: '#6061B6' }}>
+                      <div className="flex items-center justify-between">
+                        <h3 className="font-extrabold text-base text-indigo-800">2. Simpangan Kuartil (Rentang Semi Antar Kuartil / Qd)</h3>
+                        <span className="text-xs font-bold px-2.5 py-1 rounded-lg bg-purple-50 text-purple-900">Berdasarkan Kuartil</span>
+                      </div>
+                      <p className="text-xs text-slate-700 leading-relaxed">
+                        Kuartil membagi data menjadi empat bagian sama besar (Q1, Q2, Q3). Jangkauan interkuartil adalah selisih antara Q3 dan Q1, sedangkan simpangan kuartil adalah setengah dari jangkauan interkuartil tersebut.
+                      </p>
+                      <div className="p-3 rounded-xl bg-indigo-900 text-white font-mono text-xs font-bold text-center tracking-wider shadow-inner">
+                        Rumus: Qd = ½ (Q3 - Q1)
+                      </div>
+                      <div className="text-xs bg-slate-50 p-3 rounded-xl border space-y-1">
+                        <p className="font-bold text-slate-800">Contoh Soal:</p>
+                        <p className="text-slate-600">Jika dari suatu data terurut diketahui Kuartil bawah (Q1) = 6 dan Kuartil atas (Q3) = 14, berapakah simpangan kuartilnya?</p>
+                        <p className="text-indigo-900 font-semibold pt-1">Penyelesaian: Qd = ½ (14 - 6) = ½ (8) = 4.</p>
+                      </div>
+                    </div>
+
+                    {/* 3. Simpangan Rata-rata (SR) */}
+                    <div className="p-5 rounded-2xl border-2 bg-white shadow-sm space-y-3" style={{ borderColor: '#6061B6' }}>
+                      <div className="flex items-center justify-between">
+                        <h3 className="font-extrabold text-base text-indigo-800">3. Simpangan Rata-rata (SR)</h3>
+                        <span className="text-xs font-bold px-2.5 py-1 rounded-lg bg-indigo-50 text-indigo-900">Nilai Mutlak Deviasi</span>
+                      </div>
+                      <p className="text-xs text-slate-700 leading-relaxed">
+                        Simpangan rata-rata adalah nilai rata-rata dari selisih mutlak antara masing-masing nilai data (x<sub>i</sub>) dengan nilai rata-rata kelompok data tersebut ($\bar{x}$).
+                      </p>
+                      <div className="p-3 rounded-xl bg-indigo-900 text-white font-mono text-xs font-bold text-center tracking-wider shadow-inner">
+                        Rumus: SR = ( Σ |xi - x̄| ) / n
+                      </div>
+                      <div className="text-xs bg-slate-50 p-3 rounded-xl border space-y-1">
+                        <p className="font-bold text-slate-800">Keterangan:</p>
+                        <p className="text-slate-600">• $x_i$ = Nilai data ke-i &nbsp;|&nbsp; • $\bar{x}$ = Rata-rata &nbsp;|&nbsp; • $n$ = Banyak data &nbsp;|&nbsp; • |...| = Nilai mutlak (selalu positif).</p>
+                      </div>
+                    </div>
+
+                    {/* 4. Simpangan Baku (S) / Standar Deviasi */}
+                    <div className="p-5 rounded-2xl border-2 bg-white shadow-sm space-y-3" style={{ borderColor: '#00105B' }}>
+                      <div className="flex items-center justify-between">
+                        <h3 className="font-extrabold text-base" style={{ color: '#00105B' }}>4. Simpangan Baku / Standar Deviasi (S)</h3>
+                        <span className="text-xs font-bold px-2.5 py-1 rounded-lg bg-blue-50 text-blue-900">Ukuran Sebaran Paling Akurat</span>
+                      </div>
+                      <p className="text-xs text-slate-700 leading-relaxed">
+                        Simpangan baku adalah akar kuadrat dari varians (ragam). Ukuran ini sangat penting dalam statistika karena menunjukkan seberapa dekat sebaran titik data dengan nilai rata-ratanya.
+                      </p>
+                      <div className="p-3 rounded-xl bg-indigo-950 text-white font-mono text-xs font-bold text-center tracking-wider shadow-inner">
+                        Rumus: S = √( Σ(xi - x̄)² / n )
+                      </div>
+                      <div className="text-xs bg-slate-50 p-3 rounded-xl border space-y-1">
+                        <p className="font-bold text-slate-800">Aplikasi Nyata:</p>
+                        <p className="text-slate-600">Dalam dunia industri (misal pabrik pembuatan baut atau kemasan makanan), simpangan baku kecil menunjukkan produk sangat presisi dan berkualitas tinggi.</p>
                       </div>
                     </div>
 
