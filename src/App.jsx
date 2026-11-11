@@ -627,4 +627,45 @@ export default function App() {
 
     </div>
   );
-}
+}import musikBelajar from './assets/instrumen-belajar.mp3';
+import { Volume2, VolumeX } from 'lucide-react'; // Pastikan ikon ini ada untuk tombol musik
+const [isPlayingMusic, setIsPlayingMusic] = useState(false);
+  const audioRef = useRef(null);
+
+  // Inisialisasi Audio Lokal
+  useEffect(() => {
+    audioRef.current = new Audio(musikBelajar);
+    audioRef.current.loop = true;
+    audioRef.current.volume = 0.4;
+
+    return () => {
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current = null;
+      }
+    };
+  }, []);
+
+  // Fungsi Tombol Musik Mengambang
+  const toggleMusic = () => {
+    if (!audioRef.current) return;
+    if (isPlayingMusic) {
+      audioRef.current.pause();
+      setIsPlayingMusic(false);
+    } else {
+      audioRef.current.play().then(() => {
+        setIsPlayingMusic(true);
+      }).catch(err => {
+        console.log("Audio play blocked:", err);
+      });
+    }
+  };{/* Tombol Musik Mengambang */}
+      <button
+        onClick={toggleMusic}
+        className="fixed bottom-4 right-4 z-50 bg-white p-3 rounded-full shadow-lg border-2 flex items-center gap-2 transition-transform hover:scale-105"
+        style={{ borderColor: '#9FA0FF', color: '#9FA0FF' }}
+        title="Nyalakan/Matikan Musik Instrumen"
+      >
+        {isPlayingMusic ? <Volume2 size={18} className="text-emerald-600 animate-pulse" /> : <VolumeX size={18} className="text-slate-400" />}
+        <span className="hidden md:inline font-medium text-sm">{isPlayingMusic ? 'Musik Nyala' : 'Musik Mati'}</span>
+      </button>
