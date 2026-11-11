@@ -29,7 +29,10 @@ export default function App() {
 
   useEffect(() => {
     if (!audioRef.current) return;
-    if (page === 'welcome' || page === 'home') {
+    // Musik menyala di welcome, home, materi, panduan-kalkulator, dan kalkulator. Mati di pretest, latihan, posttest, evaluasi.
+    const isFocusPage = page === 'pretest' || page === 'latihan' || page === 'posttest' || page === 'evaluasi';
+    
+    if (!isFocusPage) {
       if (isPlayingMusic) {
         audioRef.current.play().catch(e => console.log("Audio autoplay dibatasi browser"));
       } else {
