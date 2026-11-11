@@ -159,7 +159,7 @@ export default function App() {
   return (
     <div className="relative min-h-screen text-slate-800 font-sans flex flex-col justify-between overflow-x-hidden">
       
-      {/* BACKGROUND GAMBAR BURAM (BLURRED BACKGROUND) */}
+      {/* BACKGROUND GAMBAR BURAM */}
       <div 
         className="fixed inset-0 z-0 bg-cover bg-center bg-no-repeat filter blur-md scale-105 opacity-35"
         style={{ backgroundImage: `url(${bgImageUrl})` }}
@@ -268,7 +268,8 @@ export default function App() {
               
               {page === 'home' && (
                 <div className="space-y-6">
-                  <div className="p-6 rounded-3xl shadow-md text-slate-800 flex flex-col md:flex-row items-center justify-between gap-4 backdrop-blur-md bg-opacity-90" style={{ backgroundColor: '#D5E8E6' }}>
+                  {/* KOTAK MENU UTAMA WARNA PINK (#FFF3E3) */}
+                  <div className="p-6 rounded-3xl shadow-md text-slate-800 flex flex-col md:flex-row items-center justify-between gap-4 border-2" style={{ backgroundColor: '#FFF3E3', borderColor: '#9FA0FF' }}>
                     <div>
                       <h2 className="text-2xl font-black mb-1">Selamat Datang, {studentName}! 👋</h2>
                       <p className="text-slate-700 text-sm font-medium">Ikuti tahapan belajar di bawah ini secara berurutan untuk hasil yang maksimal.</p>
@@ -277,21 +278,21 @@ export default function App() {
                   </div>
 
                   <div className="grid md:grid-cols-3 gap-4">
-                    <div onClick={() => setPage('pretest')} className="bg-white/90 backdrop-blur-md p-5 rounded-3xl shadow-sm border-2 cursor-pointer transition hover:shadow-md space-y-2" style={{ borderColor: '#FF7171' }}>
+                    <div onClick={() => setPage('pretest')} className="p-5 rounded-3xl shadow-sm border-2 cursor-pointer transition hover:shadow-md space-y-2" style={{ backgroundColor: '#FFF3E3', borderColor: '#FF7171' }}>
                       <div className="w-12 h-12 rounded-2xl flex items-center justify-center text-white font-bold" style={{ backgroundColor: '#FF7171' }}>1</div>
                       <h3 className="font-extrabold text-lg">Pre-Test</h3>
                       <p className="text-xs text-slate-600">Tes awal kemampuan sebelum masuk materi penyebaran data.</p>
                       <span className="text-xs font-bold flex items-center gap-1" style={{ color: '#FF7171' }}>Mulai Pre-Test <ChevronRight size={14} /></span>
                     </div>
 
-                    <div onClick={() => setPage('materi')} className="bg-white/90 backdrop-blur-md p-5 rounded-3xl shadow-sm border-2 cursor-pointer transition hover:shadow-md space-y-2" style={{ borderColor: '#9FA0FF' }}>
+                    <div onClick={() => setPage('materi')} className="p-5 rounded-3xl shadow-sm border-2 cursor-pointer transition hover:shadow-md space-y-2" style={{ backgroundColor: '#FFF3E3', borderColor: '#9FA0FF' }}>
                       <div className="w-12 h-12 rounded-2xl flex items-center justify-center text-white font-bold" style={{ backgroundColor: '#9FA0FF' }}>2</div>
                       <h3 className="font-extrabold text-lg">Materi & Panduan Alat</h3>
                       <p className="text-xs text-slate-600">Pelajari konsep rumus dan cara pakai kalkulator step-by-step.</p>
                       <span className="text-xs font-bold flex items-center gap-1" style={{ color: '#9FA0FF' }}>Buka Materi <ChevronRight size={14} /></span>
                     </div>
 
-                    <div onClick={() => setPage('posttest')} className="bg-white/90 backdrop-blur-md p-5 rounded-3xl shadow-sm border-2 cursor-pointer transition hover:shadow-md space-y-2" style={{ borderColor: '#D5E8E6' }}>
+                    <div onClick={() => setPage('posttest')} className="p-5 rounded-3xl shadow-sm border-2 cursor-pointer transition hover:shadow-md space-y-2" style={{ backgroundColor: '#FFF3E3', borderColor: '#D5E8E6' }}>
                       <div className="w-12 h-12 rounded-2xl flex items-center justify-center text-slate-800 font-bold" style={{ backgroundColor: '#D5E8E6' }}>3</div>
                       <h3 className="font-extrabold text-lg">Post-Test & Evaluasi</h3>
                       <p className="text-xs text-slate-600">Uji kemampuan akhir dan lihat preview evaluasi pembahasan soal.</p>
@@ -302,7 +303,7 @@ export default function App() {
               )}
 
               {page === 'pretest' && (
-                <div className="bg-white/90 backdrop-blur-md p-6 rounded-3xl shadow-sm border-2 space-y-6" style={{ borderColor: '#FF7171' }}>
+                <div className="p-6 rounded-3xl shadow-sm border-2 space-y-6" style={{ backgroundColor: '#FFF3E3', borderColor: '#FF7171' }}>
                   <div className="flex justify-between items-center">
                     <div>
                       <h2 className="text-2xl font-black" style={{ color: '#FF7171' }}>Pre-Test (Tes Awal) - Mode Fokus 🎧</h2>
@@ -312,12 +313,12 @@ export default function App() {
                   </div>
 
                   {questions.map((q, idx) => (
-                    <div key={q.id} className="p-4 rounded-2xl border-2 space-y-3" style={{ backgroundColor: '#FFF3E3', borderColor: '#FF7171' }}>
+                    <div key={q.id} className="p-4 rounded-2xl border-2 space-y-3 bg-white" style={{ borderColor: '#FF7171' }}>
                       <span className="text-xs font-extrabold text-white px-3 py-1 rounded-full inline-block" style={{ backgroundColor: '#FF7171' }}>Soal Pre-Test {idx + 1}</span>
                       <p className="font-bold text-slate-800 text-sm">{q.question}</p>
                       <div className="space-y-2">
                         {q.options.map((opt, optIdx) => (
-                          <label key={optIdx} className={`flex items-center gap-3 p-2.5 rounded-xl border cursor-pointer text-xs font-medium bg-white`}>
+                          <label key={optIdx} className={`flex items-center gap-3 p-2.5 rounded-xl border cursor-pointer text-xs font-medium bg-slate-50 hover:bg-slate-100`}>
                             <input type="radio" name={`pre-${q.id}`} checked={preAnswers[q.id] === optIdx} onChange={() => setPreAnswers({ ...preAnswers, [q.id]: optIdx })} />
                             <span>{opt}</span>
                           </label>
@@ -339,7 +340,7 @@ export default function App() {
 
               {page === 'materi' && (
                 <div className="space-y-6">
-                  <div className="bg-white/90 backdrop-blur-md p-6 rounded-3xl shadow-sm border-2 space-y-6" style={{ borderColor: '#9FA0FF' }}>
+                  <div className="p-6 rounded-3xl shadow-sm border-2 space-y-6" style={{ backgroundColor: '#FFF3E3', borderColor: '#9FA0FF' }}>
                     <div className="flex justify-between items-center">
                       <div>
                         <h2 className="text-2xl font-black" style={{ color: '#9FA0FF' }}>Modul Materi Pembelajaran</h2>
@@ -349,28 +350,28 @@ export default function App() {
                     </div>
 
                     <div className="grid md:grid-cols-2 gap-4">
-                      <div className="p-5 rounded-2xl border-2" style={{ backgroundColor: '#FFF3E3', borderColor: '#FF7171' }}>
+                      <div className="p-5 rounded-2xl border-2 bg-white" style={{ borderColor: '#FF7171' }}>
                         <h3 className="font-extrabold text-lg mb-1" style={{ color: '#FF7171' }}>1. Jangkauan (Range)</h3>
                         <p className="text-xs text-slate-700">Selisih antara nilai terbesar (Xmax) dan terkecil (Xmin).</p>
-                        <code className="block bg-white p-2.5 mt-3 rounded-xl text-xs font-mono font-bold text-center border" style={{ borderColor: '#FF7171', color: '#FF7171' }}>J = Xmax - Xmin</code>
+                        <code className="block bg-slate-50 p-2.5 mt-3 rounded-xl text-xs font-mono font-bold text-center border" style={{ borderColor: '#FF7171', color: '#FF7171' }}>J = Xmax - Xmin</code>
                       </div>
 
-                      <div className="p-5 rounded-2xl border-2" style={{ backgroundColor: '#D5E8E6', borderColor: '#9FA0FF' }}>
+                      <div className="p-5 rounded-2xl border-2 bg-white" style={{ borderColor: '#9FA0FF' }}>
                         <h3 className="font-extrabold text-lg mb-1" style={{ color: '#9FA0FF' }}>2. Simpangan Kuartil</h3>
                         <p className="text-xs text-slate-700">Setengah dari jangkauan interkuartil (Q3 - Q1).</p>
-                        <code className="block bg-white p-2.5 mt-3 rounded-xl text-xs font-mono font-bold text-center border" style={{ borderColor: '#9FA0FF', color: '#9FA0FF' }}>Qd = ½ (Q3 - Q1)</code>
+                        <code className="block bg-slate-50 p-2.5 mt-3 rounded-xl text-xs font-mono font-bold text-center border" style={{ borderColor: '#9FA0FF', color: '#9FA0FF' }}>Qd = ½ (Q3 - Q1)</code>
                       </div>
 
-                      <div className="p-5 rounded-2xl border-2" style={{ backgroundColor: '#D5E8E6', borderColor: '#9FA0FF' }}>
+                      <div className="p-5 rounded-2xl border-2 bg-white" style={{ borderColor: '#9FA0FF' }}>
                         <h3 className="font-extrabold text-lg mb-1" style={{ color: '#9FA0FF' }}>3. Simpangan Rata-rata</h3>
                         <p className="text-xs text-slate-700">Rata-rata jarak mutlak tiap data terhadap rata-rata.</p>
-                        <code className="block bg-white p-2.5 mt-3 rounded-xl text-xs font-mono font-bold text-center border" style={{ borderColor: '#9FA0FF', color: '#9FA0FF' }}>SR = (Σ |xi - x̄|) / n</code>
+                        <code className="block bg-slate-50 p-2.5 mt-3 rounded-xl text-xs font-mono font-bold text-center border" style={{ borderColor: '#9FA0FF', color: '#9FA0FF' }}>SR = (Σ |xi - x̄|) / n</code>
                       </div>
 
-                      <div className="p-5 rounded-2xl border-2" style={{ backgroundColor: '#FFF3E3', borderColor: '#FF7171' }}>
+                      <div className="p-5 rounded-2xl border-2 bg-white" style={{ borderColor: '#FF7171' }}>
                         <h3 className="font-extrabold text-lg mb-1" style={{ color: '#FF7171' }}>4. Simpangan Baku</h3>
                         <p className="text-xs text-slate-700">Akar kuadrat dari varians (ragam) sebaran data.</p>
-                        <code className="block bg-white p-2.5 mt-3 rounded-xl text-xs font-mono font-bold text-center border" style={{ borderColor: '#FF7171', color: '#FF7171' }}>S = √( Σ(xi - x̄)² / n )</code>
+                        <code className="block bg-slate-50 p-2.5 mt-3 rounded-xl text-xs font-mono font-bold text-center border" style={{ borderColor: '#FF7171', color: '#FF7171' }}>S = √( Σ(xi - x̄)² / n )</code>
                       </div>
                     </div>
 
@@ -383,7 +384,7 @@ export default function App() {
               )}
 
               {page === 'panduan-kalkulator' && (
-                <div className="bg-white/90 backdrop-blur-md p-6 rounded-3xl shadow-sm border-2 space-y-6" style={{ borderColor: '#FF7171' }}>
+                <div className="p-6 rounded-3xl shadow-sm border-2 space-y-6" style={{ backgroundColor: '#FFF3E3', borderColor: '#FF7171' }}>
                   <div className="flex justify-between items-center">
                     <div>
                       <h2 className="text-2xl font-black" style={{ color: '#FF7171' }}>📖 Panduan Penggunaan Kalkulator Step-by-Step</h2>
@@ -393,7 +394,7 @@ export default function App() {
                   </div>
 
                   <div className="space-y-4 text-xs text-slate-700 leading-relaxed">
-                    <div className="p-4 rounded-2xl border-2 bg-slate-50 border-slate-200 space-y-2">
+                    <div className="p-4 rounded-2xl border-2 bg-white border-slate-200 space-y-2">
                       <h3 className="font-extrabold text-sm text-slate-800 flex items-center gap-1">
                         <HelpCircle size={16} className="text-indigo-600" /> Apa itu Kalkulator Step-by-Step?
                       </h3>
@@ -402,11 +403,11 @@ export default function App() {
                       </p>
                     </div>
 
-                    <div className="p-4 rounded-2xl border-2 space-y-2" style={{ backgroundColor: '#FFF3E3', borderColor: '#FF7171' }}>
+                    <div className="p-4 rounded-2xl border-2 space-y-2 bg-white" style={{ borderColor: '#FF7171' }}>
                       <h3 className="font-extrabold text-sm" style={{ color: '#FF7171' }}>📌 Langkah-Langkah Penggunaan:</h3>
                       <ol className="list-decimal list-inside space-y-1 font-medium">
                         <li>Buka menu <strong>Kalkulator</strong>.</li>
-                        <li>Ketikkan data angka pada kolom input. Pastikan antar angka **dipisahkan dengan tanda koma (`,`)**, contoh: <code className="bg-white px-1 py-0.5 rounded font-bold">6, 8, 7, 5, 9</code>.</li>
+                        <li>Ketikkan data angka pada kolom input. Pastikan antar angka **dipisahkan dengan tanda koma (`,`)**, contoh: <code className="bg-slate-100 px-1 py-0.5 rounded font-bold">6, 8, 7, 5, 9</code>.</li>
                         <li>Klik tombol <strong>Hitung</strong>.</li>
                         <li>Perhatikan tabel penolong di bawahnya untuk melihat asal-usul nilai deviasi secara rinci.</li>
                       </ol>
@@ -421,15 +422,15 @@ export default function App() {
               )}
 
               {page === 'kalkulator' && (
-                <div className="bg-white/90 backdrop-blur-md p-6 rounded-3xl shadow-sm border-2 space-y-4" style={{ borderColor: '#FF7171' }}>
+                <div className="p-6 rounded-3xl shadow-sm border-2 space-y-4" style={{ backgroundColor: '#FFF3E3', borderColor: '#FF7171' }}>
                   <div className="flex justify-between items-center">
                     <h2 className="text-2xl font-black" style={{ color: '#FF7171' }}>Kalkulator Step-by-Step</h2>
                     <div className="flex gap-2">
-                      <button onClick={() => setPage('panduan-kalkulator')} className="text-xs font-bold px-3 py-2 rounded-xl bg-slate-100 text-slate-700 hover:bg-slate-200">? Baca Panduan</button>
+                      <button onClick={() => setPage('panduan-kalkulator')} className="text-xs font-bold px-3 py-2 rounded-xl bg-white text-slate-700 hover:bg-slate-100">? Baca Panduan</button>
                       <button onClick={() => setPage('latihan')} className="text-xs font-bold px-4 py-2 rounded-xl text-white shadow-sm" style={{ backgroundColor: '#9FA0FF' }}>Lanjut Latihan Soal →</button>
                     </div>
                   </div>
-                  <p className="text-xs text-slate-600">Masukkan angka pisahkan dengan koma (contoh: <code className="bg-slate-100 px-1.5 py-0.5 rounded font-bold" style={{ color: '#FF7171' }}>6, 8, 7, 5, 9</code>):</p>
+                  <p className="text-xs text-slate-600">Masukkan angka pisahkan dengan koma (contoh: <code className="bg-white px-1.5 py-0.5 rounded font-bold" style={{ color: '#FF7171' }}>6, 8, 7, 5, 9</code>):</p>
                   
                   <div className="flex gap-2">
                     <input 
@@ -447,26 +448,26 @@ export default function App() {
                     <div className="mt-6 space-y-4 border-t pt-4">
                       <h3 className="font-bold text-slate-700 text-sm">Hasil Analisis Tahapan:</h3>
                       <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-center">
-                        <div className="p-3 rounded-2xl border-2" style={{ backgroundColor: '#FFF3E3', borderColor: '#FF7171' }}>
+                        <div className="p-3 rounded-2xl border-2 bg-white" style={{ borderColor: '#FF7171' }}>
                           <span className="text-xs text-slate-500 block font-medium">Jumlah Data (n)</span>
                           <span className="text-xl font-black" style={{ color: '#FF7171' }}>{calcResult.n}</span>
                         </div>
-                        <div className="p-3 rounded-2xl border-2" style={{ backgroundColor: '#D5E8E6', borderColor: '#9FA0FF' }}>
+                        <div className="p-3 rounded-2xl border-2 bg-white" style={{ borderColor: '#9FA0FF' }}>
                           <span className="text-xs text-slate-500 block font-medium">Nilai Rata-rata (x̄)</span>
                           <span className="text-xl font-black" style={{ color: '#9FA0FF' }}>{calcResult.mean.toFixed(2)}</span>
                         </div>
-                        <div className="p-3 rounded-2xl border-2" style={{ backgroundColor: '#FFF3E3', borderColor: '#FF7171' }}>
+                        <div className="p-3 rounded-2xl border-2 bg-white" style={{ borderColor: '#FF7171' }}>
                           <span className="text-xs text-slate-500 block font-medium">Jangkauan (Range)</span>
                           <span className="text-xl font-black" style={{ color: '#FF7171' }}>{calcResult.range}</span>
                         </div>
-                        <div className="p-3 rounded-2xl border-2" style={{ backgroundColor: '#D5E8E6', borderColor: '#9FA0FF' }}>
+                        <div className="p-3 rounded-2xl border-2 bg-white" style={{ borderColor: '#9FA0FF' }}>
                           <span className="text-xs text-slate-500 block font-medium">Simpangan Baku (S)</span>
                           <span className="text-xl font-black" style={{ color: '#9FA0FF' }}>{calcResult.stdDev.toFixed(2)}</span>
                         </div>
                       </div>
 
                       <div className="overflow-x-auto mt-4">
-                        <table className="w-full text-xs text-left border-collapse">
+                        <table className="w-full text-xs text-left border-collapse bg-white rounded-xl overflow-hidden shadow-sm">
                           <thead>
                             <tr className="text-slate-800 font-bold" style={{ backgroundColor: '#D5E8E6' }}>
                               <th className="p-3 border">Data (xi)</th>
@@ -498,19 +499,19 @@ export default function App() {
               )}
 
               {page === 'latihan' && (
-                <div className="bg-white/90 backdrop-blur-md p-6 rounded-3xl shadow-sm border-2 space-y-6" style={{ borderColor: '#9FA0FF' }}>
+                <div className="p-6 rounded-3xl shadow-sm border-2 space-y-6" style={{ backgroundColor: '#FFF3E3', borderColor: '#9FA0FF' }}>
                   <div className="flex justify-between items-center">
                     <h2 className="text-2xl font-black" style={{ color: '#9FA0FF' }}>Latihan Soal (5 Soal) - Mode Fokus 🎧</h2>
                     <button onClick={() => setPage('posttest')} className="text-xs font-bold px-4 py-2 rounded-xl text-white shadow-sm" style={{ backgroundColor: '#FF7171' }}>Lanjut Post-Test →</button>
                   </div>
                   
                   {questions.map((q, idx) => (
-                    <div key={q.id} className="p-4 rounded-2xl border-2 space-y-3" style={{ backgroundColor: '#FFF3E3', borderColor: '#D5E8E6' }}>
+                    <div key={q.id} className="p-4 rounded-2xl border-2 space-y-3 bg-white" style={{ borderColor: '#9FA0FF' }}>
                       <span className="text-xs font-extrabold text-white px-3 py-1 rounded-full inline-block" style={{ backgroundColor: '#9FA0FF' }}>Soal {idx + 1} • {q.indicator}</span>
                       <p className="font-bold text-slate-800 text-sm">{q.question}</p>
                       <div className="space-y-2">
                         {q.options.map((opt, optIdx) => (
-                          <label key={optIdx} className={`flex items-center gap-3 p-2.5 rounded-xl border cursor-pointer text-xs font-medium bg-white`}>
+                          <label key={optIdx} className={`flex items-center gap-3 p-2.5 rounded-xl border cursor-pointer text-xs font-medium bg-slate-50 hover:bg-slate-100`}>
                             <input type="radio" name={`lat-${q.id}`} checked={latAnswers[q.id] === optIdx} onChange={() => setLatAnswers({ ...latAnswers, [q.id]: optIdx })} />
                             <span>{opt}</span>
                           </label>
@@ -531,7 +532,7 @@ export default function App() {
               )}
 
               {page === 'posttest' && (
-                <div className="bg-white/90 backdrop-blur-md p-6 rounded-3xl shadow-sm border-2 space-y-6" style={{ borderColor: '#D5E8E6' }}>
+                <div className="p-6 rounded-3xl shadow-sm border-2 space-y-6" style={{ backgroundColor: '#FFF3E3', borderColor: '#D5E8E6' }}>
                   <div className="flex justify-between items-center">
                     <div>
                       <h2 className="text-2xl font-black text-slate-800">Post-Test & Evaluasi - Mode Fokus 🎧</h2>
@@ -545,12 +546,12 @@ export default function App() {
                   </div>
 
                   {questions.map((q, idx) => (
-                    <div key={q.id} className="p-4 rounded-2xl border-2 space-y-3 bg-slate-50 border-slate-200">
+                    <div key={q.id} className="p-4 rounded-2xl border-2 space-y-3 bg-white border-slate-200">
                       <span className="text-xs font-extrabold px-3 py-1 rounded-full inline-block bg-slate-700 text-white">Post-Test Soal {idx + 1}</span>
                       <p className="font-bold text-slate-800 text-sm">{q.question}</p>
                       <div className="space-y-2">
                         {q.options.map((opt, optIdx) => (
-                          <label key={optIdx} className={`flex items-center gap-3 p-2.5 rounded-xl border cursor-pointer text-xs font-medium bg-white`}>
+                          <label key={optIdx} className={`flex items-center gap-3 p-2.5 rounded-xl border cursor-pointer text-xs font-medium bg-slate-50 hover:bg-slate-100`}>
                             <input type="radio" name={`post-${q.id}`} checked={postAnswers[q.id] === optIdx} onChange={() => setPostAnswers({ ...postAnswers, [q.id]: optIdx })} />
                             <span>{opt}</span>
                           </label>
@@ -574,7 +575,7 @@ export default function App() {
               )}
 
               {page === 'evaluasi' && (
-                <div className="bg-white/90 backdrop-blur-md p-6 rounded-3xl shadow-sm border-2 space-y-6" style={{ borderColor: '#FF7171' }}>
+                <div className="p-6 rounded-3xl shadow-sm border-2 space-y-6" style={{ backgroundColor: '#FFF3E3', borderColor: '#FF7171' }}>
                   <div className="flex justify-between items-center border-b pb-4">
                     <div>
                       <h2 className="text-2xl font-black" style={{ color: '#FF7171' }}>Preview Evaluasi Pengerjaan Soal</h2>
@@ -584,11 +585,11 @@ export default function App() {
                   </div>
 
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-center">
-                    <div className="p-3 rounded-2xl border-2 bg-slate-50 border-slate-200">
+                    <div className="p-3 rounded-2xl border-2 bg-white border-slate-200">
                       <span className="text-xs text-slate-500 block font-medium">Total Soal</span>
                       <span className="text-lg font-black text-slate-800">5 Butir</span>
                     </div>
-                    <div className="p-3 rounded-2xl border-2" style={{ backgroundColor: '#D5E8E6', borderColor: '#9FA0FF' }}>
+                    <div className="p-3 rounded-2xl border-2 bg-white" style={{ borderColor: '#9FA0FF' }}>
                       <span className="text-xs text-slate-500 block font-medium">Skor Akhir</span>
                       <span className="text-lg font-black" style={{ color: '#9FA0FF' }}>{postScore} / 25</span>
                     </div>
