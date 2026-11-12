@@ -109,46 +109,135 @@ export default function App() {
   const [postSubmitted, setPostSubmitted] = useState(false);
   const [postScore, setPostScore] = useState(0);
 
-  const questions = [
+  // BANK SOAL PRE-TEST (KHUSUS)
+  const pretestQuestions = [
     {
       id: 1,
-      indicator: "Jangkauan Kuartil",
-      question: "Apa yang dimaksud dengan Jangkauan Kuartil (atau Jangkauan Antar Kuartil)?",
-      options: ["Selisih antara nilai terbesar dan terkecil", "Selisih antara Kuartil Atas (Q3) dan Kuartil Bawah (Q1)", "Setengah dari jangkauan interkuartil", "Jumlah seluruh kuartil"],
+      indicator: "Konsep Dasar Kuartil",
+      question: "Apa fungsi utama dari Kuartil dalam suatu kelompok data tunggal?",
+      options: ["Membagi data menjadi dua bagian", "Membagi data terurut menjadi empat bagian sama besar", "Mencari nilai rata-rata hitung", "Menentukan nilai yang paling sering muncul"],
       answer: 1,
-      explanation: "Jangkauan Interkuartil (QR) adalah selisih antara Kuartil Atas (Q3) dan Kuartil Bawah (Q1), yaitu QR = Q3 - Q1."
+      explanation: "Kuartil adalah nilai-nilai yang membagi kelompok data terurut menjadi empat bagian yang sama besar (Q1, Q2, dan Q3)."
     },
     {
       id: 2,
-      indicator: "Simpangan Kuartil",
-      question: "Dari data nilai: 4, 5, 6, 6, 7, 7, 8, 8, 9, 10. Jika Q1 = 6 dan Q3 = 8, berapakah Simpangan Kuartil (Qd)?",
-      options: ["1", "2", "3", "4"],
+      indicator: "Pengertian Jangkauan Interkuartil",
+      question: "Jangkauan Interkuartil (QR) dihitung dengan rumus...",
+      options: ["Q3 - Q1", "Q3 + Q1", "½ (Q3 - Q1)", "Q2 - Q1"],
       answer: 0,
-      explanation: "Simpangan kuartil Qd = ½ (Q3 - Q1) = ½ (8 - 6) = ½ (2) = 1."
+      explanation: "Jangkauan interkuartil (QR) dirumuskan sebagai selisih antara kuartil atas (Q3) dan kuartil bawah (Q1)."
     },
     {
       id: 3,
-      indicator: "Jangkauan Kuartil & Interkuartil",
-      question: "Jika diketahui Q1 = 10 dan Q3 = 22, berapakah Jangkauan Interkuartil (QR)?",
-      options: ["6", "11", "12", "16"],
+      indicator: "Simpangan Kuartil",
+      question: "Jika jangkauan interkuartil suatu data adalah 12, berapakah simpangan kuartilnya?",
+      options: ["24", "12", "6", "4"],
       answer: 2,
-      explanation: "Jangkauan Interkuartil QR = Q3 - Q1 = 22 - 10 = 12."
+      explanation: "Simpangan kuartil adalah setengah dari jangkauan interkuartil, yaitu Qd = ½ × 12 = 6."
     },
     {
       id: 4,
-      indicator: "Simpangan Kuartil",
-      question: "Manakah rumus yang tepat untuk menghitung Simpangan Kuartil (Qd)?",
-      options: ["Qd = Q3 - Q1", "Qd = ½ (Q3 - Q1)", "Qd = Q3 + Q1", "Qd = ¼ (Q3 - Q1)"],
+      indicator: "Urutan Data",
+      question: "Langkah pertama yang WAJIB dilakukan sebelum menentukan Q1, Q2, dan Q3 adalah...",
+      options: ["Menjumlahkan seluruh data", "Mengurutkan data dari terkecil ke terbesar", "Membagi jumlah data dengan 2", "Mengkuadratkan setiap angka"],
       answer: 1,
-      explanation: "Simpangan kuartil (deviasi kuartil) dirumuskan sebagai setengah kali jangkauan interkuartil, yaitu Qd = ½(Q3 - Q1)."
+      explanation: "Data wajib diurutkan terlebih dahulu dari nilai terkecil ke terbesar sebelum menentukan letak kuartil."
     },
     {
       id: 5,
-      indicator: "Analisis Data",
-      question: "Mengapa Simpangan Kuartil sering digunakan dalam statistika selain Jangkauan biasa?",
-      options: ["Karena lebih rumit dihitung", "Karena tidak terpengaruh oleh data pencilan (ekstrem)", "Karena hanya menggunakan data genap", "Karena nilai selalu negatif"],
+      indicator: "Manfaat Ukuran Sebaran",
+      question: "Manakah yang termasuk ukuran penyebaran data berdasarkan letak?",
+      options: ["Rata-rata", "Modus", "Simpangan Kuartil", "Median"],
+      answer: 2,
+      explanation: "Simpangan kuartil dan jangkauan interkuartil merupakan ukuran penyebaran data berdasarkan letak (kuartil)."
+    }
+  ];
+
+  // BANK SOAL LATIHAN (KHUSUS & BERBEDA)
+  const latihanQuestions = [
+    {
+      id: 1,
+      indicator: "Menghitung Q1 dan Q3",
+      question: "Diketahui data terurut: 3, 5, 7, 9, 11, 13, 15. Berapakah nilai Kuartil Atas (Q3)?",
+      options: ["5", "9", "13", "15"],
+      answer: 2,
+      explanation: "Dari 7 data tersebut, median (Q2) = 9. Bagian atas adalah 11, 13, 15, sehingga Kuartil Atas (Q3) adalah 13."
+    },
+    {
+      id: 2,
+      indicator: "Hitung Jangkauan Interkuartil",
+      question: "Dari data: 2, 4, 6, 8, 10, 12, 14, 16. Diketahui Q1 = 4.5 dan Q3 = 13.5. Berapakah Jangkauan Interkuartilnya?",
+      options: ["4", "9", "18", "22"],
       answer: 1,
-      explanation: "Simpangan kuartil dan jangkauan interkuartil bersifat lebih tahan terhadap nilai ekstrem atau data pencilan dibanding jangkauan biasa."
+      explanation: "Jangkauan interkuartil QR = Q3 - Q1 = 13.5 - 4.5 = 9."
+    },
+    {
+      id: 3,
+      indicator: "Hitung Simpangan Kuartil",
+      question: "Suatu data memiliki Q1 = 10 dan Q3 = 26. Berapakah Simpangan Kuartil (Qd) data tersebut?",
+      options: ["8", "16", "32", "18"],
+      answer: 0,
+      explanation: "Qd = ½ (Q3 - Q1) = ½ (26 - 10) = ½ (16) = 8."
+    },
+    {
+      id: 4,
+      indicator: "Analisis Karakteristik",
+      question: "Jika semua data dalam suatu kelompok ditambah dengan 5, apa yang terjadi pada Simpangan Kuartilnya?",
+      options: ["Bertambah 5", "Berkuadrat", "Tetap tidak berubah", "Berkurang 5"],
+      answer: 2,
+      explanation: "Ukuran penyebaran seperti jangkauan interkuartil dan simpangan kuartil tidak berubah jika setiap data ditambah atau dikurangi dengan bilangan konstan."
+    },
+    {
+      id: 5,
+      indicator: "Penerapan Rumus",
+      question: "Diketahui Qd = 4 dan Q1 = 7. Berapakah nilai Kuartil Atas (Q3)?",
+      options: ["11", "15", "21", "25"],
+      answer: 1,
+      explanation: "Qd = ½(Q3 - Q1) => 4 = ½(Q3 - 7) => 8 = Q3 - 7 => Q3 = 15."
+    }
+  ];
+
+  // BANK SOAL POST-TEST (KHUSUS & BERBEDA)
+  const posttestQuestions = [
+    {
+      id: 1,
+      indicator: "Evaluasi Komprehensif Q1 Q3",
+      question: "Dalam data berat badan siswa: 40, 42, 45, 48, 50, 52, 55, 58, 60. Tentukan Kuartil Bawah (Q1) dan Kuartil Atas (Q3)! (Median = 50)",
+      options: ["Q1 = 43.5 dan Q3 = 56.5", "Q1 = 42 dan Q3 = 58", "Q1 = 45 dan Q3 = 55", "Q1 = 40 dan Q3 = 60"],
+      answer: 0,
+      explanation: "Data di bawah median: 40, 42, 45, 48 (Q1 = (42+45)/2 = 43.5). Data di atas median: 52, 55, 58, 60 (Q3 = (55+58)/2 = 56.5)."
+    },
+    {
+      id: 2,
+      indicator: "Evaluasi Jangkauan Interkuartil",
+      question: "Berdasarkan soal nomor 1, berapakah Jangkauan Interkuartil (QR) dari data berat badan tersebut?",
+      options: ["10", "13", "15", "18"],
+      answer: 1,
+      explanation: "QR = Q3 - Q1 = 56.5 - 43.5 = 13."
+    },
+    {
+      id: 3,
+      indicator: "Evaluasi Simpangan Kuartil",
+      question: "Jika Jangkauan Interkuartil suatu data ujian adalah 16, berapakah Simpangan Kuartil data tersebut?",
+      options: ["4", "8", "16", "32"],
+      answer: 1,
+      explanation: "Simpangan kuartil Qd = ½ × QR = ½ × 16 = 8."
+    },
+    {
+      id: 4,
+      indicator: "Analisis Data Ekstrem",
+      question: "Mengapa Jangkauan Interkuartil dan Simpangan Kuartil lebih dipilih dibandingkan Jangkauan biasa jika terdapat data ekstrem (pencilan)?",
+      options: ["Karena jangkauan interkuartil mengabaikan 25% data terkecil dan 25% data terbesar", "Karena perhitungannya lebih panjang", "Karena selalu bernilai negatif", "Karena menggunakan seluruh data tanpa terkecuali"],
+      answer: 0,
+      explanation: "Karena kuartil didasarkan pada posisi tengah setelah data diurutkan dan mengabaikan nilai ekstrem di ujung bawah dan atas."
+    },
+    {
+      id: 5,
+      indicator: "Pemahaman Rumus Akhir",
+      question: "Manakah pernyataan yang BENAR mengenai hubungan Q1, Q3, QR, dan Qd?",
+      options: ["QR = 2 × Qd", "Qd = QR", "QR = Qd - Q1", "Qd = Q3 + Q1"],
+      answer: 0,
+      explanation: "Karena Qd = ½ QR, maka Jangkauan Interkuartil (QR) sama dengan 2 kali Simpangan Kuartil (2 × Qd)."
     }
   ];
 
@@ -162,7 +251,6 @@ export default function App() {
       arr.sort((a, b) => a - b);
       const n = arr.length;
       
-      // Hitung Kuartil sederhana untuk kalkulator
       const q1Index = Math.floor(n / 4);
       const q3Index = Math.floor((3 * n) / 4);
       const q1 = arr[q1Index];
@@ -179,15 +267,15 @@ export default function App() {
   const handleCheckQuiz = (type) => {
     let score = 0;
     if (type === 'pre') {
-      questions.forEach(q => { if (preAnswers[q.id] === q.answer) score += 5; });
+      pretestQuestions.forEach(q => { if (preAnswers[q.id] === q.answer) score += 5; });
       setPreScore(score);
       setPreSubmitted(true);
     } else if (type === 'lat') {
-      questions.forEach(q => { if (latAnswers[q.id] === q.answer) score += 5; });
+      latihanQuestions.forEach(q => { if (latAnswers[q.id] === q.answer) score += 5; });
       setLatScore(score);
       setLatSubmitted(true);
     } else if (type === 'post') {
-      questions.forEach(q => { if (postAnswers[q.id] === q.answer) score += 5; });
+      posttestQuestions.forEach(q => { if (postAnswers[q.id] === q.answer) score += 5; });
       setPostScore(score);
       setPostSubmitted(true);
     }
@@ -265,7 +353,7 @@ export default function App() {
               </div>
 
               <div>
-                <h1 className="text-2xl font-black tracking-tight mt-1" style={{ color: currentTheme.primary }}>Statistika : Penyebaran Data</h1>
+                <h1 className="text-2xl font-black tracking-tight mt-1" style={{ color: currentTheme.primary }}>STATMAGIC</h1>
                 <p className="text-xs font-semibold text-slate-700 mt-1">Media Pembelajaran Interaktif & Evaluasi Mandiri</p>
               </div>
 
@@ -278,7 +366,7 @@ export default function App() {
                     </span>
                     <input 
                       type="text" 
-                      placeholder="Contoh: aulia"
+                      placeholder="Contoh: Aulia"
                       value={studentName}
                       onChange={(e) => setStudentName(e.target.value)}
                       className="w-full pl-9 pr-4 py-2.5 bg-white border-2 rounded-xl text-slate-900 placeholder-slate-400 focus:outline-none font-semibold text-xs shadow-inner"
@@ -324,7 +412,7 @@ export default function App() {
               <div className="max-w-4xl mx-auto flex flex-wrap justify-between items-center gap-2">
                 <div>
                   <button onClick={() => setPage('home')} className="text-left hover:opacity-90 transition">
-                    <h1 className="text-lg font-black tracking-wide text-white">Statistika : Penyebaran Data</h1>
+                    <h1 className="text-lg font-black tracking-wide text-white">STATMAGIC</h1>
                     <p className="text-xs text-indigo-200 font-bold">Halo, {studentName} ✨</p>
                   </button>
                 </div>
@@ -343,7 +431,7 @@ export default function App() {
               
               {page === 'home' && (
                 <div className="space-y-6">
-                  {/* KOTAK SELAMAT DATANG (TANPA KELAS SESUAI PERMINTAAN) */}
+                  {/* KOTAK SELAMAT DATANG (HANYA NAMA) */}
                   <div className="p-6 rounded-3xl shadow-lg text-slate-900 flex flex-col md:flex-row items-center justify-between gap-4 border-2 transition-colors duration-500" style={{ backgroundColor: currentTheme.cardBg, borderColor: currentTheme.primary }}>
                     <div>
                       <h2 className="text-2xl font-black mb-1" style={{ color: currentTheme.primary }}>Selamat Datang, {studentName}! 👋</h2>
@@ -390,18 +478,19 @@ export default function App() {
                     </div>
                   </div>
 
-                  {/* KOTAK DESKRIPSI WEB APLIKASI (DIPERBARUI MENGENAI KUARTIL) */}
+                  {/* KOTAK DESKRIPSI STATMAGIC */}
                   <div className="p-6 rounded-3xl shadow-lg border-2 space-y-3 bg-white transition-colors duration-500" style={{ borderColor: currentTheme.secondary }}>
                     <h3 className="font-extrabold text-base flex items-center gap-2" style={{ color: currentTheme.primary }}>
-                      <Sparkles size={18} className="text-amber-500" /> Tentang Web Aplikasi Ini
+                      <Sparkles size={18} className="text-amber-500" /> Tentang STATMAGIC
                     </h3>
                     <p className="text-xs text-slate-700 leading-relaxed font-medium">
-                      Web aplikasi <strong>Statistika : Penyebaran Data</strong> ini dikhususkan untuk mempelajari topik ukuran penyebaran data yang meliputi <strong>Jangkauan Kuartil</strong>, <strong>Jangkauan Interkuartil</strong>, dan <strong>Simpangan Kuartil</strong>. Melalui aplikasi ini, kamu dapat memahami konsep dasar kuartil, menggunakan kalkulator interaktif step-by-step secara mandiri, serta menguji kemampuan melalui pre-test, latihan soal, dan post-test lengkap dengan musik latar belakang yang menenangkan.
+                      <strong>STATMAGIC</strong> adalah web aplikasi pembelajaran interaktif yang dikhususkan untuk mempelajari topik ukuran penyebaran data yang meliputi <strong>Jangkauan Kuartil</strong>, <strong>Jangkauan Interkuartil</strong>, dan <strong>Simpangan Kuartil</strong>. Melalui aplikasi ini, kamu dapat memahami konsep dasar kuartil, menggunakan kalkulator interaktif step-by-step secara mandiri, serta menguji kemampuan melalui pre-test, latihan soal, dan post-test lengkap dengan musik latar belakang yang menenangkan.
                     </p>
                   </div>
                 </div>
               )}
 
+              {/* HALAMAN PRE-TEST */}
               {page === 'pretest' && (
                 <div className="p-6 rounded-3xl shadow-lg border-2 space-y-6" style={{ backgroundColor: currentTheme.cardBg, borderColor: currentTheme.primary }}>
                   <div className="flex justify-between items-center">
@@ -412,9 +501,9 @@ export default function App() {
                     <button onClick={() => setPage('materi')} className="text-xs font-bold px-4 py-2.5 rounded-xl text-white shadow-md transition hover:opacity-95" style={{ backgroundColor: currentTheme.secondary }}>Lanjut ke Materi →</button>
                   </div>
 
-                  {questions.map((q, idx) => (
+                  {pretestQuestions.map((q, idx) => (
                     <div key={q.id} className="p-4 rounded-2xl border-2 space-y-3 bg-white shadow-sm" style={{ borderColor: currentTheme.secondary }}>
-                      <span className="text-xs font-extrabold text-white px-3 py-1 rounded-full inline-block" style={{ backgroundColor: currentTheme.secondary }}>Soal Pre-Test {idx + 1}</span>
+                      <span className="text-xs font-extrabold text-white px-3 py-1 rounded-full inline-block" style={{ backgroundColor: currentTheme.secondary }}>Soal Pre-Test {idx + 1} • {q.indicator}</span>
                       <p className="font-bold text-slate-900 text-sm">{q.question}</p>
                       <div className="space-y-2">
                         {q.options.map((opt, optIdx) => (
@@ -438,7 +527,7 @@ export default function App() {
                 </div>
               )}
 
-              {/* HALAMAN MATERI (FOKUS JANGKAUAN KUARTIL, INTERKUARTIL, SIMPANGAN KUARTIL) */}
+              {/* HALAMAN MATERI */}
               {page === 'materi' && (
                 <div className="space-y-6">
                   <div className="p-6 rounded-3xl shadow-lg border-2 space-y-6 text-slate-900" style={{ backgroundColor: currentTheme.cardBg, borderColor: currentTheme.primary }}>
@@ -462,7 +551,6 @@ export default function App() {
                       </p>
                     </div>
 
-                    {/* 1. Jangkauan Kuartil / Interkuartil */}
                     <div className="p-5 rounded-2xl border-2 bg-white shadow-sm space-y-3" style={{ borderColor: currentTheme.primary }}>
                       <div className="flex items-center justify-between">
                         <h3 className="font-extrabold text-base" style={{ color: currentTheme.primary }}>1. Jangkauan Interkuartil (QR)</h3>
@@ -481,7 +569,6 @@ export default function App() {
                       </div>
                     </div>
 
-                    {/* 2. Simpangan Kuartil (Qd) */}
                     <div className="p-5 rounded-2xl border-2 bg-white shadow-sm space-y-3" style={{ borderColor: currentTheme.secondary }}>
                       <div className="flex items-center justify-between">
                         <h3 className="font-extrabold text-base text-indigo-800">2. Simpangan Kuartil (Deviasi Kuartil / Qd)</h3>
@@ -508,7 +595,7 @@ export default function App() {
                 </div>
               )}
 
-              {/* HALAMAN KALKULATOR (PANDUAN & HITUNG KUARTIL) */}
+              {/* HALAMAN KALKULATOR */}
               {page === 'kalkulator' && (
                 <div className="p-6 rounded-3xl shadow-lg border-2 space-y-6" style={{ backgroundColor: currentTheme.cardBg, borderColor: currentTheme.primary }}>
                   
@@ -617,6 +704,7 @@ export default function App() {
                 </div>
               )}
 
+              {/* HALAMAN LATIHAN (DIPISAH & BERBEDA) */}
               {page === 'latihan' && (
                 <div className="p-6 rounded-3xl shadow-lg border-2 space-y-6" style={{ backgroundColor: currentTheme.cardBg, borderColor: currentTheme.primary }}>
                   <div className="flex justify-between items-center">
@@ -624,9 +712,9 @@ export default function App() {
                     <button onClick={() => setPage('posttest')} className="text-xs font-bold px-4 py-2.5 rounded-xl text-white shadow-md transition hover:opacity-95" style={{ backgroundColor: currentTheme.secondary }}>Lanjut Post-Test →</button>
                   </div>
                   
-                  {questions.map((q, idx) => (
+                  {latihanQuestions.map((q, idx) => (
                     <div key={q.id} className="p-4 rounded-2xl border-2 space-y-3 bg-white shadow-sm" style={{ borderColor: currentTheme.secondary }}>
-                      <span className="text-xs font-extrabold text-white px-3 py-1 rounded-full inline-block shadow-sm" style={{ backgroundColor: currentTheme.secondary }}>Soal {idx + 1} • {q.indicator}</span>
+                      <span className="text-xs font-extrabold text-white px-3 py-1 rounded-full inline-block shadow-sm" style={{ backgroundColor: currentTheme.secondary }}>Soal Latihan {idx + 1} • {q.indicator}</span>
                       <p className="font-bold text-slate-900 text-sm">{q.question}</p>
                       <div className="space-y-2">
                         {q.options.map((opt, optIdx) => (
@@ -650,6 +738,7 @@ export default function App() {
                 </div>
               )}
 
+              {/* HALAMAN POST-TEST (DIPISAH & BERBEDA) */}
               {page === 'posttest' && (
                 <div className="p-6 rounded-3xl shadow-lg border-2 space-y-6" style={{ backgroundColor: currentTheme.cardBg, borderColor: currentTheme.primary }}>
                   <div className="flex justify-between items-center">
@@ -664,9 +753,9 @@ export default function App() {
                     )}
                   </div>
 
-                  {questions.map((q, idx) => (
+                  {posttestQuestions.map((q, idx) => (
                     <div key={q.id} className="p-4 rounded-2xl border-2 space-y-3 bg-white border-slate-200 shadow-sm">
-                      <span className="text-xs font-extrabold px-3 py-1 rounded-full inline-block text-white shadow-sm" style={{ backgroundColor: currentTheme.primary }}>Post-Test Soal {idx + 1}</span>
+                      <span className="text-xs font-extrabold px-3 py-1 rounded-full inline-block text-white shadow-sm" style={{ backgroundColor: currentTheme.primary }}>Post-Test Soal {idx + 1} • {q.indicator}</span>
                       <p className="font-bold text-slate-900 text-sm">{q.question}</p>
                       <div className="space-y-2">
                         {q.options.map((opt, optIdx) => (
@@ -693,12 +782,13 @@ export default function App() {
                 </div>
               )}
 
+              {/* HALAMAN EVALUASI */}
               {page === 'evaluasi' && (
                 <div className="p-6 rounded-3xl shadow-lg border-2 space-y-6" style={{ backgroundColor: currentTheme.cardBg, borderColor: currentTheme.primary }}>
                   <div className="flex justify-between items-center border-b pb-4">
                     <div>
                       <h2 className="text-2xl font-black" style={{ color: currentTheme.primary }}>Preview Evaluasi Pengerjaan Soal</h2>
-                      <p className="text-xs text-slate-600 font-medium">Hasil analisis jawaban untuk siswa: <span className="font-bold text-slate-900">{studentName}</span></p>
+                      <p className="text-xs text-slate-600 font-medium">Hasil analisis jawaban untuk siswa: <span className="font-bold text-slate-900">{studentName} ({studentClass})</span></p>
                     </div>
                     <button onClick={() => setPage('posttest')} className="bg-slate-200 text-slate-700 px-4 py-2.5 rounded-xl text-xs font-bold shadow-sm">← Kembali ke Post-Test</button>
                   </div>
@@ -723,8 +813,8 @@ export default function App() {
                   </div>
 
                   <div className="space-y-4 pt-2">
-                    <h3 className="font-extrabold text-slate-900 text-sm uppercase tracking-wider">Rincian Pembahasan & Evaluasi 5 Soal:</h3>
-                    {questions.map((q, idx) => {
+                    <h3 className="font-extrabold text-slate-900 text-sm uppercase tracking-wider">Rincian Pembahasan & Evaluasi Post-Test:</h3>
+                    {posttestQuestions.map((q, idx) => {
                       const userChoice = postAnswers[q.id];
                       const isCorrect = userChoice === q.answer;
                       return (
@@ -747,7 +837,7 @@ export default function App() {
 
                   <div className="pt-4 flex justify-between border-t">
                     <button onClick={() => setPage('home')} className="bg-slate-200 text-slate-700 px-5 py-2.5 rounded-xl text-xs font-bold shadow-sm hover:bg-slate-300">← Kembali ke Menu Utama</button>
-                    <button onClick={() => { setPage('welcome'); setStudentName(''); }} className="text-white px-5 py-2.5 rounded-xl text-xs font-bold shadow-md transition hover:opacity-95" style={{ backgroundColor: currentTheme.primary }}>Selesai & Keluar</button>
+                    <button onClick={() => { setPage('welcome'); setStudentName(''); setStudentClass(''); }} className="text-white px-5 py-2.5 rounded-xl text-xs font-bold shadow-md transition hover:opacity-95" style={{ backgroundColor: currentTheme.primary }}>Selesai & Keluar</button>
                   </div>
                 </div>
               )}
@@ -757,7 +847,7 @@ export default function App() {
         )}
 
         <footer className="relative z-10 text-center py-4 text-xs font-bold text-white border-t mt-8 shadow-inner transition-colors duration-500" style={{ backgroundColor: currentTheme.primary }}>
-          Media Pembelajaran Matematika • Statistika : Penyebaran Data (Kuartil)
+          STATMAGIC • Media Pembelajaran Matematika (Jangkauan & Simpangan Kuartil)
         </footer>
       </div>
 
