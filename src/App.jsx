@@ -6,6 +6,7 @@ import musicFile from './assets/instrumen-belajar.mp3';
 export default function App() {
   const [page, setPage] = useState('welcome');
   const [studentName, setStudentName] = useState('');
+  const [studentClass, setStudentClass] = useState('');
   
   // State Kontrol Musik - Default langsung menyala (true)
   const [isPlayingMusic, setIsPlayingMusic] = useState(true);
@@ -17,7 +18,7 @@ export default function App() {
   // State Tombol Atraktif (Animasi Bintang & Jempol)
   const [floatingEffects, setFloatingEffects] = useState([]);
 
-  // State Tema Warna Web (Default Biru Elegan, bisa diganti ke Ungu/Emerald)
+  // State Tema Warna Web
   const [themeMode, setThemeMode] = useState('blue'); // 'blue', 'purple', 'emerald'
 
   const themes = {
@@ -93,7 +94,7 @@ export default function App() {
     else setThemeMode('blue');
   };
   
-  const [inputData, setInputData] = useState('6, 8, 7, 5, 9');
+  const [inputData, setInputData] = useState('4, 5, 6, 6, 7, 7, 8, 8, 9, 10');
   const [calcResult, setCalcResult] = useState(null);
 
   const [preAnswers, setPreAnswers] = useState({});
@@ -111,43 +112,43 @@ export default function App() {
   const questions = [
     {
       id: 1,
-      indicator: "Mathematical Reasoning (Konsistensi Data)",
-      question: "Pelatih memilih pemain berdasarkan kestabilan skor. Pemain A: 10, 12, 11, 10, 12 (Jangkauan = 2). Pemain B: 5, 17, 6, 18, 9 (Jangkauan = 13). Siapa yang lebih konsisten?",
-      options: ["Pemain A karena jangkauannya lebih kecil", "Pemain B karena nilainya besar", "Keduanya sama saja", "Tidak dapat ditentukan"],
-      answer: 0,
-      explanation: "Pemain A lebih konsisten karena nilai sebaran data (jangkauan) lebih kecil dibanding Pemain B."
+      indicator: "Jangkauan Kuartil",
+      question: "Apa yang dimaksud dengan Jangkauan Kuartil (atau Jangkauan Antar Kuartil)?",
+      options: ["Selisih antara nilai terbesar dan terkecil", "Selisih antara Kuartil Atas (Q3) dan Kuartil Bawah (Q1)", "Setengah dari jangkauan interkuartil", "Jumlah seluruh kuartil"],
+      answer: 1,
+      explanation: "Jangkauan Interkuartil (QR) adalah selisih antara Kuartil Atas (Q3) dan Kuartil Bawah (Q1), yaitu QR = Q3 - Q1."
     },
     {
       id: 2,
-      indicator: "Formulating Situations (Jangkauan Interkuartil)",
-      question: "Dari data nilai: 4, 5, 6, 6, 7, 7, 8, 8, 9, 10. Berapakah Jangkauan Interkuartil (QR = Q3 - Q1) jika Q1 = 6 dan Q3 = 8?",
+      indicator: "Simpangan Kuartil",
+      question: "Dari data nilai: 4, 5, 6, 6, 7, 7, 8, 8, 9, 10. Jika Q1 = 6 dan Q3 = 8, berapakah Simpangan Kuartil (Qd)?",
       options: ["1", "2", "3", "4"],
-      answer: 1,
-      explanation: "QR = Q3 - Q1 = 8 - 6 = 2."
+      answer: 0,
+      explanation: "Simpangan kuartil Qd = ½ (Q3 - Q1) = ½ (8 - 6) = ½ (2) = 1."
     },
     {
       id: 3,
-      indicator: "Employing Concepts (Simpangan Rata-rata)",
-      question: "Diketahui data 4, 6, 8, 10, 12 dengan Rata-rata = 8. Berapakah jumlah deviasi mutlak |xi - x̄|?",
-      options: ["10", "12", "15", "20"],
-      answer: 1,
-      explanation: "|4-8| + |6-8| + |8-8| + |10-8| + |12-8| = 4 + 2 + 0 + 2 + 4 = 12."
+      indicator: "Jangkauan Kuartil & Interkuartil",
+      question: "Jika diketahui Q1 = 10 dan Q3 = 22, berapakah Jangkauan Interkuartil (QR)?",
+      options: ["6", "11", "12", "16"],
+      answer: 2,
+      explanation: "Jangkauan Interkuartil QR = Q3 - Q1 = 22 - 10 = 12."
     },
     {
       id: 4,
-      indicator: "Interpreting Outcomes (Simpangan Baku Produk)",
-      question: "Pabrik baut membandingkan Simpangan Baku: Baut A (S = 0,1 mm) dan Baut B (S = 1,5 mm). Apakah Baut B lebih berkualitas?",
-      options: ["Ya, karena angkanya lebih besar", "Tidak, Baut A lebih presisi karena S lebih kecil", "Sama saja", "Tergantung warna baut"],
+      indicator: "Simpangan Kuartil",
+      question: "Manakah rumus yang tepat untuk menghitung Simpangan Kuartil (Qd)?",
+      options: ["Qd = Q3 - Q1", "Qd = ½ (Q3 - Q1)", "Qd = Q3 + Q1", "Qd = ¼ (Q3 - Q1)"],
       answer: 1,
-      explanation: "Semakin kecil simpangan baku (S), produk semakin seragam dan presisi."
+      explanation: "Simpangan kuartil (deviasi kuartil) dirumuskan sebagai setengah kali jangkauan interkuartil, yaitu Qd = ½(Q3 - Q1)."
     },
     {
       id: 5,
-      indicator: "Mathematical Reasoning (Notasi Sigma)",
-      question: "Apa arti dari simbol notasi Sigma (Σ) dalam rumus statistika?",
-      options: ["Perkalian semua data", "Pengurangan data terbesar dan terkecil", "Penjumlahan seluruh suku data", "Akar kuadrat data"],
-      answer: 2,
-      explanation: "Simbol Σ (Sigma) melambangkan operasi penjumlahan dari suatu barisan bilangan."
+      indicator: "Analisis Data",
+      question: "Mengapa Simpangan Kuartil sering digunakan dalam statistika selain Jangkauan biasa?",
+      options: ["Karena lebih rumit dihitung", "Karena tidak terpengaruh oleh data pencilan (ekstrem)", "Karena hanya menggunakan data genap", "Karena nilai selalu negatif"],
+      answer: 1,
+      explanation: "Simpangan kuartil dan jangkauan interkuartil bersifat lebih tahan terhadap nilai ekstrem atau data pencilan dibanding jangkauan biasa."
     }
   ];
 
@@ -160,23 +161,16 @@ export default function App() {
       }
       arr.sort((a, b) => a - b);
       const n = arr.length;
-      const sum = arr.reduce((acc, val) => acc + val, 0);
-      const mean = sum / n;
-      const min = arr[0];
-      const max = arr[n - 1];
-      const range = max - min;
+      
+      // Hitung Kuartil sederhana untuk kalkulator
+      const q1Index = Math.floor(n / 4);
+      const q3Index = Math.floor((3 * n) / 4);
+      const q1 = arr[q1Index];
+      const q3 = arr[q3Index];
+      const interquartileRange = q3 - q1;
+      const quartileDeviation = 0.5 * interquartileRange;
 
-      const deviations = arr.map(x => x - mean);
-      const absDeviations = deviations.map(x => Math.abs(x));
-      const sumAbsDev = absDeviations.reduce((acc, val) => acc + val, 0);
-      const meanDev = sumAbsDev / n;
-
-      const squaredDevs = deviations.map(x => Math.pow(x, 2));
-      const sumSqDev = squaredDevs.reduce((acc, val) => acc + val, 0);
-      const variance = sumSqDev / n;
-      const stdDev = Math.sqrt(variance);
-
-      setCalcResult({ arr, n, sum, mean, min, max, range, deviations, absDeviations, sumAbsDev, meanDev, squaredDevs, sumSqDev, variance, stdDev });
+      setCalcResult({ arr, n, q1, q3, interquartileRange, quartileDeviation });
     } catch (err) {
       alert('Terjadi kesalahan format angka.');
     }
@@ -292,12 +286,24 @@ export default function App() {
                     />
                   </div>
                 </div>
+
+                <div>
+                  <label className="text-[11px] font-extrabold text-slate-800 uppercase tracking-wider block mb-1">Kelas:</label>
+                  <input 
+                    type="text" 
+                    placeholder="Contoh: 8A"
+                    value={studentClass}
+                    onChange={(e) => setStudentClass(e.target.value)}
+                    className="w-full px-4 py-2.5 bg-white border-2 rounded-xl text-slate-900 placeholder-slate-400 focus:outline-none font-semibold text-xs shadow-inner"
+                    style={{ borderColor: currentTheme.secondary }}
+                  />
+                </div>
               </div>
 
               <button 
                 onClick={() => {
-                  if(!studentName.trim()) {
-                    alert('Mohon masukkan Nama kamu dulu ya!');
+                  if(!studentName.trim() || !studentClass.trim()) {
+                    alert('Mohon masukkan Nama dan Kelas kamu dulu ya!');
                     return;
                   }
                   setIsPlayingMusic(true);
@@ -337,7 +343,7 @@ export default function App() {
               
               {page === 'home' && (
                 <div className="space-y-6">
-                  {/* KOTAK SELAMAT DATANG (TANPA KELAS) */}
+                  {/* KOTAK SELAMAT DATANG (TANPA KELAS SESUAI PERMINTAAN) */}
                   <div className="p-6 rounded-3xl shadow-lg text-slate-900 flex flex-col md:flex-row items-center justify-between gap-4 border-2 transition-colors duration-500" style={{ backgroundColor: currentTheme.cardBg, borderColor: currentTheme.primary }}>
                     <div>
                       <h2 className="text-2xl font-black mb-1" style={{ color: currentTheme.primary }}>Selamat Datang, {studentName}! 👋</h2>
@@ -351,14 +357,14 @@ export default function App() {
                     <div onClick={() => setPage('pretest')} className="p-5 rounded-3xl shadow-md border-2 cursor-pointer transition hover:shadow-xl space-y-2 transform hover:-translate-y-1 bg-white" style={{ borderColor: currentTheme.primary }}>
                       <div className="w-10 h-10 rounded-2xl flex items-center justify-center text-white font-black text-sm shadow-sm" style={{ backgroundColor: currentTheme.primary }}>1</div>
                       <h3 className="font-extrabold text-base text-slate-900">Pre-Test</h3>
-                      <p className="text-xs text-slate-600 font-medium">Tes awal kemampuan sebelum masuk materi penyebaran data.</p>
+                      <p className="text-xs text-slate-600 font-medium">Tes awal kemampuan sebelum masuk materi kuartil.</p>
                       <span className="text-xs font-extrabold flex items-center gap-1 pt-1" style={{ color: currentTheme.primary }}>Mulai Pre-Test <ChevronRight size={14} /></span>
                     </div>
 
                     <div onClick={() => setPage('materi')} className="p-5 rounded-3xl shadow-md border-2 cursor-pointer transition hover:shadow-xl space-y-2 transform hover:-translate-y-1 bg-white" style={{ borderColor: currentTheme.secondary }}>
                       <div className="w-10 h-10 rounded-2xl flex items-center justify-center text-white font-black text-sm shadow-sm" style={{ backgroundColor: currentTheme.secondary }}>2</div>
                       <h3 className="font-extrabold text-base text-slate-900">Materi</h3>
-                      <p className="text-xs text-slate-600 font-medium">Pelajari konsep rumus lengkap dengan contoh soal dan pembahasannya.</p>
+                      <p className="text-xs text-slate-600 font-medium">Pelajari jangkauan kuartil, interkuartil, dan simpangan kuartil.</p>
                       <span className="text-xs font-extrabold flex items-center gap-1 pt-1" style={{ color: currentTheme.secondary }}>Buka Materi <ChevronRight size={14} /></span>
                     </div>
 
@@ -384,13 +390,13 @@ export default function App() {
                     </div>
                   </div>
 
-                  {/* KOTAK TAMBAHAN: DESKRIPSI TENTANG WEB APLIKASI */}
+                  {/* KOTAK DESKRIPSI WEB APLIKASI (DIPERBARUI MENGENAI KUARTIL) */}
                   <div className="p-6 rounded-3xl shadow-lg border-2 space-y-3 bg-white transition-colors duration-500" style={{ borderColor: currentTheme.secondary }}>
                     <h3 className="font-extrabold text-base flex items-center gap-2" style={{ color: currentTheme.primary }}>
                       <Sparkles size={18} className="text-amber-500" /> Tentang Web Aplikasi Ini
                     </h3>
                     <p className="text-xs text-slate-700 leading-relaxed font-medium">
-                      Web aplikasi <strong>Statistika : Penyebaran Data</strong> dirancang sebagai media pembelajaran mandiri yang interaktif dan menyenangkan. Aplikasi ini membantu siswa memahami konsep ukuran penyebaran data (seperti Jangkauan, Simpangan Kuartil, Simpangan Rata-rata, dan Simpangan Baku) melalui modul materi terstruktur, panduan kalkulator step-by-step otomatis, serta evaluasi mandiri berbasis kuis dengan musik pengiring belajar yang menenangkan.
+                      Web aplikasi <strong>Statistika : Penyebaran Data</strong> ini dikhususkan untuk mempelajari topik ukuran penyebaran data yang meliputi <strong>Jangkauan Kuartil</strong>, <strong>Jangkauan Interkuartil</strong>, dan <strong>Simpangan Kuartil</strong>. Melalui aplikasi ini, kamu dapat memahami konsep dasar kuartil, menggunakan kalkulator interaktif step-by-step secara mandiri, serta menguji kemampuan melalui pre-test, latihan soal, dan post-test lengkap dengan musik latar belakang yang menenangkan.
                     </p>
                   </div>
                 </div>
@@ -432,93 +438,65 @@ export default function App() {
                 </div>
               )}
 
+              {/* HALAMAN MATERI (FOKUS JANGKAUAN KUARTIL, INTERKUARTIL, SIMPANGAN KUARTIL) */}
               {page === 'materi' && (
                 <div className="space-y-6">
                   <div className="p-6 rounded-3xl shadow-lg border-2 space-y-6 text-slate-900" style={{ backgroundColor: currentTheme.cardBg, borderColor: currentTheme.primary }}>
                     <div className="flex justify-between items-center border-b pb-4">
                       <div>
-                        <h2 className="text-2xl font-black" style={{ color: currentTheme.primary }}>📖 Modul Materi: Penyebaran Data Statistika</h2>
-                        <p className="text-xs font-semibold text-slate-600 mt-0.5">Memahami Ukuran Penyebaran Data</p>
+                        <h2 className="text-2xl font-black" style={{ color: currentTheme.primary }}>📖 Modul Materi: Jangkauan & Simpangan Kuartil</h2>
+                        <p className="text-xs font-semibold text-slate-600 mt-0.5">Ukuran Penyebaran Data Berdasarkan Kuartil</p>
                       </div>
                       <button onClick={() => { setCalcTab('panduan'); setPage('kalkulator'); }} className="text-xs font-bold px-4 py-2.5 rounded-xl text-white shadow-md transition hover:opacity-95" style={{ backgroundColor: currentTheme.secondary }}>Buka Kalkulator →</button>
                     </div>
 
                     <div className="p-4 rounded-2xl bg-white border-2 border-indigo-100 shadow-sm space-y-2">
                       <h3 className="font-extrabold text-sm text-indigo-950 flex items-center gap-1.5">
-                        <Sparkles size={16} className="text-amber-500" /> Mengapa Kita Harus Mempelajari Penyebaran Data?
+                        <Sparkles size={16} className="text-amber-500" /> Apa itu Kuartil dalam Statistika?
                       </h3>
                       <p className="text-xs text-slate-700 leading-relaxed font-medium">
-                        Ukuran pemusatan data (seperti Rata-rata/Mean, Median, Modus) terkadang belum cukup untuk menggambarkan karakteristik suatu kelompok data secara utuh. Kita memerlukan <strong>Ukuran Penyebaran Data (Dispersi)</strong> untuk melihat seberapa jauh nilai-nilai data menyebar atau bervariasi dari nilai rata-ratanya.
+                        Sebelum menghitung sebaran kuartil, data harus diurutkan terlebih dahulu dari terkecil ke terbesar. Kuartil membagi data menjadi 4 bagian yang sama besar, yaitu:
+                        <br/>• <strong>Q1 (Kuartil Bawah)</strong>
+                        <br/>• <strong>Q2 (Kuartil Tengah / Median)</strong>
+                        <br/>• <strong>Q3 (Kuartil Atas)</strong>
                       </p>
                     </div>
 
+                    {/* 1. Jangkauan Kuartil / Interkuartil */}
                     <div className="p-5 rounded-2xl border-2 bg-white shadow-sm space-y-3" style={{ borderColor: currentTheme.primary }}>
                       <div className="flex items-center justify-between">
-                        <h3 className="font-extrabold text-base" style={{ color: currentTheme.primary }}>1. Jangkauan (Range / J)</h3>
-                        <span className="text-xs font-bold px-2.5 py-1 rounded-lg bg-indigo-50 text-indigo-900">Ukuran Sebaran Sederhana</span>
+                        <h3 className="font-extrabold text-base" style={{ color: currentTheme.primary }}>1. Jangkauan Interkuartil (QR)</h3>
+                        <span className="text-xs font-bold px-2.5 py-1 rounded-lg bg-indigo-50 text-indigo-900">Selisih Q3 dan Q1</span>
                       </div>
                       <p className="text-xs text-slate-700 leading-relaxed">
-                        Jangkauan adalah selisih antara nilai data terbesar dengan nilai data terkecil dalam suatu kelompok data. Semakin kecil jangkauan, maka data semakin merata/seragam.
+                        Jangkauan interkuartil (atau sering disebut jangkauan kuartil) adalah selisih antara kuartil atas ($Q_3$) dan kuartil bawah ($Q_1$).
                       </p>
                       <div className="p-3 rounded-xl text-white font-mono text-xs font-bold text-center tracking-wider shadow-inner" style={{ backgroundColor: currentTheme.primary }}>
-                        Rumus: J = Xmax - Xmin
+                        Rumus: QR = Q3 - Q1
                       </div>
                       <div className="text-xs bg-slate-50 p-3 rounded-xl border space-y-1">
                         <p className="font-bold text-slate-800">Contoh Soal:</p>
-                        <p className="text-slate-600">Diketahui data nilai ulangan matematika: 6, 8, 5, 9, 7, 10. Tentukan jangkauannya!</p>
-                        <p className="text-indigo-900 font-semibold pt-1">Penyelesaian: Urutkan data (5, 6, 7, 8, 9, 10). Xmax = 10 dan Xmin = 5. Maka J = 10 - 5 = 5.</p>
+                        <p className="text-slate-600">Dari suatu data terurut, diketahui Kuartil bawah ($Q_1$) = 6 dan Kuartil atas ($Q_3$) = 14. Tentukan jangkauan interkuartilnya!</p>
+                        <p className="text-indigo-900 font-semibold pt-1">Penyelesaian: QR = 14 - 6 = 8.</p>
                       </div>
                     </div>
 
+                    {/* 2. Simpangan Kuartil (Qd) */}
                     <div className="p-5 rounded-2xl border-2 bg-white shadow-sm space-y-3" style={{ borderColor: currentTheme.secondary }}>
                       <div className="flex items-center justify-between">
-                        <h3 className="font-extrabold text-base text-indigo-800">2. Simpangan Kuartil (Rentang Semi Antar Kuartil / Qd)</h3>
-                        <span className="text-xs font-bold px-2.5 py-1 rounded-lg bg-purple-50 text-purple-900">Berdasarkan Kuartil</span>
+                        <h3 className="font-extrabold text-base text-indigo-800">2. Simpangan Kuartil (Deviasi Kuartil / Qd)</h3>
+                        <span className="text-xs font-bold px-2.5 py-1 rounded-lg bg-purple-50 text-purple-900">Setengah dari QR</span>
                       </div>
                       <p className="text-xs text-slate-700 leading-relaxed">
-                        Kuartil membagi data menjadi empat bagian sama besar (Q1, Q2, Q3). Jangkauan interkuartil adalah selisih antara Q3 dan Q1, sedangkan simpangan kuartil adalah setengah dari jangkauan interkuartil tersebut.
+                        Simpangan kuartil adalah setengah dari jangkauan interkuartil. Ukuran ini menunjukkan sebaran data di sekitar median.
                       </p>
                       <div className="p-3 rounded-xl text-white font-mono text-xs font-bold text-center tracking-wider shadow-inner" style={{ backgroundColor: currentTheme.secondary }}>
-                        Rumus: Qd = ½ (Q3 - Q1)
+                        Rumus: Qd = ½ (Q3 - Q1) &nbsp; atau &nbsp; Qd = ½ QR
                       </div>
                       <div className="text-xs bg-slate-50 p-3 rounded-xl border space-y-1">
                         <p className="font-bold text-slate-800">Contoh Soal:</p>
-                        <p className="text-slate-600">Jika dari suatu data terurut diketahui Kuartil bawah (Q1) = 6 dan Kuartil atas (Q3) = 14, berapakah simpangan kuartilnya?</p>
-                        <p className="text-indigo-900 font-semibold pt-1">Penyelesaian: Qd = ½ (14 - 6) = ½ (8) = 4.</p>
-                      </div>
-                    </div>
-
-                    <div className="p-5 rounded-2xl border-2 bg-white shadow-sm space-y-3" style={{ borderColor: currentTheme.secondary }}>
-                      <div className="flex items-center justify-between">
-                        <h3 className="font-extrabold text-base text-indigo-800">3. Simpangan Rata-rata (SR)</h3>
-                        <span className="text-xs font-bold px-2.5 py-1 rounded-lg bg-indigo-50 text-indigo-900">Nilai Mutlak Deviasi</span>
-                      </div>
-                      <p className="text-xs text-slate-700 leading-relaxed">
-                        Simpangan rata-rata adalah nilai rata-rata dari selisih mutlak antara masing-masing nilai data (x<sub>i</sub>) dengan nilai rata-rata kelompok data tersebut ($\bar{x}$).
-                      </p>
-                      <div className="p-3 rounded-xl text-white font-mono text-xs font-bold text-center tracking-wider shadow-inner" style={{ backgroundColor: currentTheme.secondary }}>
-                        Rumus: SR = ( Σ |xi - x̄| ) / n
-                      </div>
-                      <div className="text-xs bg-slate-50 p-3 rounded-xl border space-y-1">
-                        <p className="font-bold text-slate-800">Keterangan:</p>
-                        <p className="text-slate-600">• $x_i$ = Nilai data ke-i &nbsp;|&nbsp; • $\bar{x}$ = Rata-rata &nbsp;|&nbsp; • $n$ = Banyak data &nbsp;|&nbsp; • |...| = Nilai mutlak (selalu positif).</p>
-                      </div>
-                    </div>
-
-                    <div className="p-5 rounded-2xl border-2 bg-white shadow-sm space-y-3" style={{ borderColor: currentTheme.primary }}>
-                      <div className="flex items-center justify-between">
-                        <h3 className="font-extrabold text-base" style={{ color: currentTheme.primary }}>4. Simpangan Baku / Standar Deviasi (S)</h3>
-                        <span className="text-xs font-bold px-2.5 py-1 rounded-lg bg-blue-50 text-blue-900">Ukuran Sebaran Paling Akurat</span>
-                      </div>
-                      <p className="text-xs text-slate-700 leading-relaxed">
-                        Simpangan baku adalah akar kuadrat dari varians (ragam). Ukuran ini sangat penting dalam statistika karena menunjukkan seberapa dekat sebaran titik data dengan nilai rata-ratanya.
-                      </p>
-                      <div className="p-3 rounded-xl text-white font-mono text-xs font-bold text-center tracking-wider shadow-inner" style={{ backgroundColor: currentTheme.primary }}>
-                        Rumus: S = √( Σ(xi - x̄)² / n )
-                      </div>
-                      <div className="text-xs bg-slate-50 p-3 rounded-xl border space-y-1">
-                        <p className="font-bold text-slate-800">Aplikasi Nyata:</p>
-                        <p className="text-slate-600">Dalam dunia industri (misal pabrik pembuatan baut atau kemasan makanan), simpangan baku kecil menunjukkan produk sangat presisi dan berkualitas tinggi.</p>
+                        <p className="text-slate-600">Jika diketahui Jangkauan Interkuartil (QR) adalah 10, berapakah simpangan kuartilnya?</p>
+                        <p className="text-indigo-900 font-semibold pt-1">Penyelesaian: Qd = ½ × 10 = 5.</p>
                       </div>
                     </div>
 
@@ -530,15 +508,14 @@ export default function App() {
                 </div>
               )}
 
-              {/* HALAMAN KALKULATOR (DI DALAMNYA ADA TAB PANDUAN & KALKULATOR UTAMA) */}
+              {/* HALAMAN KALKULATOR (PANDUAN & HITUNG KUARTIL) */}
               {page === 'kalkulator' && (
                 <div className="p-6 rounded-3xl shadow-lg border-2 space-y-6" style={{ backgroundColor: currentTheme.cardBg, borderColor: currentTheme.primary }}>
                   
-                  {/* TAB SWITCHER DI DALAM KALKULATOR */}
                   <div className="flex justify-between items-center border-b pb-4">
                     <div>
-                      <h2 className="text-2xl font-black" style={{ color: currentTheme.primary }}>🧮 Menu Kalkulator & Panduan</h2>
-                      <p className="text-xs text-slate-600 font-medium">Pilih tab panduan atau gunakan alat hitung step-by-step.</p>
+                      <h2 className="text-2xl font-black" style={{ color: currentTheme.primary }}>🧮 Menu Kalkulator & Panduan Kuartil</h2>
+                      <p className="text-xs text-slate-600 font-medium">Pilih tab panduan atau gunakan alat hitung kuartil otomatis.</p>
                     </div>
                     <div className="flex gap-2 bg-white p-1 rounded-xl shadow-inner border">
                       <button 
@@ -562,10 +539,10 @@ export default function App() {
                     <div className="space-y-4 text-xs text-slate-700 leading-relaxed">
                       <div className="p-4 rounded-2xl border-2 bg-white border-slate-200 space-y-2 shadow-sm">
                         <h3 className="font-extrabold text-sm text-slate-900 flex items-center gap-1">
-                          <HelpCircle size={16} className="text-indigo-600" /> Apa itu Kalkulator Step-by-Step?
+                          <HelpCircle size={16} className="text-indigo-600" /> Cara Menggunakan Kalkulator Kuartil
                         </h3>
                         <p className="font-medium">
-                          Fitur ini dirancang khusus untuk membantumu menghitung besaran sebaran data secara otomatis, sekaligus menampilkan rincian tabel perhitungan secara runtut.
+                          Kalkulator ini dirancang untuk membantumu menemukan nilai Kuartil Bawah ($Q_1$), Kuartil Atas ($Q_3$), Jangkauan Interkuartil ($QR$), serta Simpangan Kuartil ($Q_d$) secara otomatis dan akurat.
                         </p>
                       </div>
 
@@ -573,9 +550,9 @@ export default function App() {
                         <h3 className="font-extrabold text-sm" style={{ color: currentTheme.primary }}>📌 Langkah-Langkah Penggunaan:</h3>
                         <ol className="list-decimal list-inside space-y-1 font-semibold">
                           <li>Klik tab <strong>Kalkulator Hitung</strong> di atas.</li>
-                          <li>Ketikkan data angka pada kolom input. Pastikan antar angka **dipisahkan dengan tanda koma (`,`)**, contoh: <code className="bg-indigo-50 px-1.5 py-0.5 rounded font-bold text-indigo-900">6, 8, 7, 5, 9</code>.</li>
-                          <li>Klik tombol <strong>Hitung</strong> berwarna utama.</li>
-                          <li>Perhatikan tabel penolong di bawahnya untuk melihat asal-usul nilai deviasi secara rinci.</li>
+                          <li>Masukkan data angka pada kolom input dengan **dipisahkan tanda koma (`,`)**, contoh: <code className="bg-indigo-50 px-1.5 py-0.5 rounded font-bold text-indigo-900">4, 5, 6, 6, 7, 7, 8, 8, 9, 10</code>.</li>
+                          <li>Klik tombol <strong>Hitung Kuartil</strong>.</li>
+                          <li>Hasil analisis urutan data, Q1, Q3, Jangkauan Interkuartil, dan Simpangan Kuartil akan langsung muncul secara instan.</li>
                         </ol>
                       </div>
 
@@ -587,7 +564,7 @@ export default function App() {
                     </div>
                   ) : (
                     <div className="space-y-4">
-                      <p className="text-xs text-slate-600 font-medium">Masukkan angka pisahkan dengan koma (contoh: <code className="bg-white px-1.5 py-0.5 rounded font-bold shadow-sm" style={{ color: currentTheme.primary }}>6, 8, 7, 5, 9</code>):</p>
+                      <p className="text-xs text-slate-600 font-medium">Masukkan data angka pisahkan dengan koma (contoh: <code className="bg-white px-1.5 py-0.5 rounded font-bold shadow-sm" style={{ color: currentTheme.primary }}>4, 5, 6, 6, 7, 7, 8, 8, 9, 10</code>):</p>
                       
                       <div className="flex gap-2">
                         <input 
@@ -597,53 +574,36 @@ export default function App() {
                           className="flex-1 border-2 border-slate-200 px-4 py-3 rounded-2xl focus:outline-none font-mono text-sm bg-white shadow-inner"
                         />
                         <button onClick={handleCalculate} className="text-white px-6 py-3 rounded-2xl font-bold transition flex items-center gap-2 shadow-md hover:opacity-95" style={{ backgroundColor: currentTheme.primary }}>
-                          <Calculator size={18} /> Hitung
+                          <Calculator size={18} /> Hitung Kuartil
                         </button>
                       </div>
 
                       {calcResult && (
                         <div className="mt-6 space-y-4 border-t pt-4">
-                          <h3 className="font-bold text-slate-800 text-sm">Hasil Analisis Tahapan:</h3>
-                          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-center">
-                            <div className="p-3.5 rounded-2xl border-2 bg-white shadow-sm" style={{ borderColor: currentTheme.primary }}>
-                              <span className="text-xs text-slate-500 block font-semibold">Jumlah Data (n)</span>
-                              <span className="text-xl font-black" style={{ color: currentTheme.primary }}>{calcResult.n}</span>
-                            </div>
-                            <div className="p-3.5 rounded-2xl border-2 bg-white shadow-sm" style={{ borderColor: currentTheme.secondary }}>
-                              <span className="text-xs text-slate-500 block font-semibold">Nilai Rata-rata (x̄)</span>
-                              <span className="text-xl font-black text-indigo-700">{calcResult.mean.toFixed(2)}</span>
-                            </div>
-                            <div className="p-3.5 rounded-2xl border-2 bg-white shadow-sm" style={{ borderColor: currentTheme.primary }}>
-                              <span className="text-xs text-slate-500 block font-semibold">Jangkauan (Range)</span>
-                              <span className="text-xl font-black" style={{ color: currentTheme.primary }}>{calcResult.range}</span>
-                            </div>
-                            <div className="p-3.5 rounded-2xl border-2 bg-white shadow-sm" style={{ borderColor: currentTheme.secondary }}>
-                              <span className="text-xs text-slate-500 block font-semibold">Simpangan Baku (S)</span>
-                              <span className="text-xl font-black text-indigo-700">{calcResult.stdDev.toFixed(2)}</span>
-                            </div>
+                          <h3 className="font-bold text-slate-800 text-sm">Hasil Analisis Kuartil:</h3>
+                          
+                          <div className="p-4 bg-white rounded-2xl border shadow-sm space-y-1">
+                            <p className="text-xs font-semibold text-slate-500">Data Terurut:</p>
+                            <p className="font-mono font-bold text-sm text-indigo-950">{calcResult.arr.join(', ')}</p>
                           </div>
 
-                          <div className="overflow-x-auto mt-4">
-                            <table className="w-full text-xs text-left border-collapse bg-white rounded-xl overflow-hidden shadow-sm">
-                              <thead>
-                                <tr className="text-white font-bold" style={{ backgroundColor: currentTheme.secondary }}>
-                                  <th className="p-3 border">Data (xi)</th>
-                                  <th className="p-3 border">xi - x̄</th>
-                                  <th className="p-3 border">|xi - x̄| (Deviasi)</th>
-                                  <th className="p-3 border">(xi - x̄)² (Kuadrat)</th>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                {calcResult.arr.map((val, idx) => (
-                                  <tr key={idx} className="border-b bg-white hover:bg-slate-50">
-                                    <td className="p-2.5 border font-mono font-bold">{val}</td>
-                                    <td className="p-2.5 border font-mono">{calcResult.deviations[idx].toFixed(2)}</td>
-                                    <td className="p-2.5 border font-mono font-bold" style={{ color: currentTheme.primary }}>{calcResult.absDeviations[idx].toFixed(2)}</td>
-                                    <td className="p-2.5 border font-mono font-bold text-indigo-700">{calcResult.squaredDevs[idx].toFixed(2)}</td>
-                                  </tr>
-                                ))}
-                              </tbody>
-                            </table>
+                          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-center">
+                            <div className="p-3.5 rounded-2xl border-2 bg-white shadow-sm" style={{ borderColor: currentTheme.primary }}>
+                              <span className="text-xs text-slate-500 block font-semibold">Kuartil Bawah (Q1)</span>
+                              <span className="text-xl font-black" style={{ color: currentTheme.primary }}>{calcResult.q1}</span>
+                            </div>
+                            <div className="p-3.5 rounded-2xl border-2 bg-white shadow-sm" style={{ borderColor: currentTheme.secondary }}>
+                              <span className="text-xs text-slate-500 block font-semibold">Kuartil Atas (Q3)</span>
+                              <span className="text-xl font-black text-indigo-700">{calcResult.q3}</span>
+                            </div>
+                            <div className="p-3.5 rounded-2xl border-2 bg-white shadow-sm" style={{ borderColor: currentTheme.primary }}>
+                              <span className="text-xs text-slate-500 block font-semibold">Jangkauan Interkuartil (QR)</span>
+                              <span className="text-xl font-black" style={{ color: currentTheme.primary }}>{calcResult.interquartileRange}</span>
+                            </div>
+                            <div className="p-3.5 rounded-2xl border-2 bg-white shadow-sm" style={{ borderColor: currentTheme.secondary }}>
+                              <span className="text-xs text-slate-500 block font-semibold">Simpangan Kuartil (Qd)</span>
+                              <span className="text-xl font-black text-indigo-700">{calcResult.quartileDeviation.toFixed(2)}</span>
+                            </div>
                           </div>
                         </div>
                       )}
@@ -797,7 +757,7 @@ export default function App() {
         )}
 
         <footer className="relative z-10 text-center py-4 text-xs font-bold text-white border-t mt-8 shadow-inner transition-colors duration-500" style={{ backgroundColor: currentTheme.primary }}>
-          Media Pembelajaran Matematika • Statistika : Penyebaran Data
+          Media Pembelajaran Matematika • Statistika : Penyebaran Data (Kuartil)
         </footer>
       </div>
 
