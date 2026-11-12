@@ -8,8 +8,8 @@ export default function App() {
   const [studentName, setStudentName] = useState('');
   const [studentClass, setStudentClass] = useState('');
   
-  // State Kontrol Musik menggunakan file lokal
-  const [isPlayingMusic, setIsPlayingMusic] = useState(false);
+  // State Kontrol Musik - Default langsung menyala (true)
+  const [isPlayingMusic, setIsPlayingMusic] = useState(true);
   const audioRef = useRef(null);
 
   // Memanggil background lokal dari folder public: /bg-school.jpg
@@ -19,6 +19,14 @@ export default function App() {
     audioRef.current = new Audio(musicFile);
     audioRef.current.loop = true;
     audioRef.current.volume = 0.5;
+
+    // Coba langsung putar musik saat pertama kali web dibuka
+    audioRef.current.play().then(() => {
+      setIsPlayingMusic(true);
+    }).catch(e => {
+      console.log("Autoplay dibatasi browser, user perlu interaksi pertama");
+      setIsPlayingMusic(false);
+    });
 
     return () => {
       if (audioRef.current) {
@@ -34,7 +42,7 @@ export default function App() {
     
     if (!isFocusPage) {
       if (isPlayingMusic) {
-        audioRef.current.play().catch(e => console.log("Audio autoplay dibatasi browser"));
+        audioRef.current.play().catch(e => console.log("Audio dibatasi browser"));
       } else {
         audioRef.current.pause();
       }
@@ -163,13 +171,13 @@ export default function App() {
   return (
     <div className="relative min-h-screen text-slate-900 font-sans flex flex-col justify-between overflow-x-hidden antialiased tracking-wide">
       
-      {/* BACKGROUND LOKAL DARI /bg-school.jpg DENGAN EFEK BURAM (BLURRED BACKGROUND) */}
+      {/* BACKGROUND LOKAL DARI /bg-school.jpg DENGAN EFEK BURAM */}
       <div 
         className="fixed inset-0 z-0 bg-cover bg-center bg-no-repeat filter blur-md scale-105 opacity-40"
         style={{ backgroundImage: `url(${bgImageUrl})` }}
       />
 
-      {/* OVERLAY DENGAN NUANSA WARNA DOMINAN BIRU (#00105B & #6061B6) */}
+      {/* OVERLAY DENGAN NUANSA WARNA DOMINAN BIRU */}
       <div className="fixed inset-0 z-0 pointer-events-none" style={{ backgroundColor: '#00105B', opacity: 0.25 }} />
 
       {/* KONTEN UTAMA APLIKASI */}
@@ -190,21 +198,7 @@ export default function App() {
           <div className="flex-1 flex items-center justify-center p-4">
             <div className="max-w-md w-full rounded-3xl shadow-2xl p-8 border-4 text-center space-y-5 relative overflow-hidden backdrop-blur-sm" style={{ backgroundColor: '#FCF9EC', borderColor: '#00105B' }}>
               
-              {/* Rumus-rumus dekorasi di latar dalam kotak */}
-              <div className="absolute -top-2 -right-2 text-indigo-950 px-3 py-1 rounded-full text-[10px] font-extrabold transform rotate-12 shadow-sm bg-indigo-100/80 border border-indigo-300">
-                S = √(Σ(x-x̄)²/n)
-              </div>
-              <div className="absolute top-2 -left-2 text-indigo-950 px-3 py-1 rounded-full text-[10px] font-extrabold transform -rotate-12 shadow-sm bg-purple-100/80 border border-purple-300">
-                J = Xmax - Xmin
-              </div>
-              <div className="absolute bottom-20 -right-3 text-[10px] font-mono font-bold text-indigo-800 bg-amber-100 px-2 py-0.5 rounded shadow-sm transform rotate-6">
-                Qd = ½(Q3 - Q1)
-              </div>
-              <div className="absolute bottom-12 -left-3 text-[10px] font-mono font-bold text-indigo-800 bg-blue-100 px-2 py-0.5 rounded shadow-sm transform -rotate-6">
-                SR = (Σ|xi - x̄|)/n
-              </div>
-
-              {/* Emoji 3 Dimensitunggal di tengah */}
+              {/* Emoji 3 Dimensi tunggal di tengah */}
               <div className="relative w-24 h-24 mx-auto mt-2 flex items-center justify-center rounded-full shadow-inner border-4 bg-gradient-to-tr from-purple-200 to-indigo-200" style={{ borderColor: '#6061B6' }}>
                 <span className="text-5xl animate-bounce drop-shadow-md">🧑‍🎓</span>
               </div>
@@ -289,9 +283,7 @@ export default function App() {
               
               {page === 'home' && (
                 <div className="space-y-6">
-                  <div className="p-6 rounded-3xl shadow-lg text-slate-900 flex flex-col md:flex-row items-center justify-between gap-4 border-2 relative overflow-hidden" style={{ backgroundColor: '#FCF9EC', borderColor: '#00105B' }}>
-                    <div className="absolute top-2 right-4 text-xs font-mono font-bold text-indigo-700 opacity-35">Σ(xi - x̄)²</div>
-                    <div className="absolute bottom-2 left-4 text-xs font-mono font-bold text-indigo-700 opacity-35">Xmax - Xmin</div>
+                  <div className="p-6 rounded-3xl shadow-lg text-slate-900 flex flex-col md:flex-row items-center justify-between gap-4 border-2" style={{ backgroundColor: '#FCF9EC', borderColor: '#00105B' }}>
                     <div>
                       <h2 className="text-2xl font-black mb-1" style={{ color: '#00105B' }}>Selamat Datang, {studentName} ({studentClass})! 👋</h2>
                       <p className="text-slate-700 text-sm font-semibold">Ikuti tahapan belajar di bawah ini secara berurutan untuk hasil yang maksimal.</p>
@@ -362,10 +354,7 @@ export default function App() {
 
               {page === 'materi' && (
                 <div className="space-y-6">
-                  <div className="p-6 rounded-3xl shadow-lg border-2 space-y-6 text-slate-900 relative overflow-hidden" style={{ backgroundColor: '#FCF9EC', borderColor: '#00105B' }}>
-                    <div className="absolute top-4 right-6 text-xs font-mono font-bold text-indigo-700 opacity-20">Σ(xi - x̄)²/n</div>
-                    <div className="absolute bottom-6 left-6 text-xs font-mono font-bold text-indigo-700 opacity-20">Qd = ½(Q3 - Q1)</div>
-
+                  <div className="p-6 rounded-3xl shadow-lg border-2 space-y-6 text-slate-900" style={{ backgroundColor: '#FCF9EC', borderColor: '#00105B' }}>
                     <div className="flex justify-between items-center border-b pb-4">
                       <div>
                         <h2 className="text-2xl font-black" style={{ color: '#00105B' }}>📖 Modul Materi: Penyebaran Data Statistika</h2>
@@ -462,8 +451,7 @@ export default function App() {
               )}
 
               {page === 'panduan-kalkulator' && (
-                <div className="p-6 rounded-3xl shadow-lg border-2 space-y-6 relative overflow-hidden" style={{ backgroundColor: '#FCF9EC', borderColor: '#00105B' }}>
-                  <div className="absolute top-2 right-2 text-xs font-mono font-bold text-indigo-700 opacity-20">S = √(Σ(x-x̄)²/n)</div>
+                <div className="p-6 rounded-3xl shadow-lg border-2 space-y-6" style={{ backgroundColor: '#FCF9EC', borderColor: '#00105B' }}>
                   <div className="flex justify-between items-center">
                     <div>
                       <h2 className="text-2xl font-black" style={{ color: '#00105B' }}>📖 Panduan Penggunaan Kalkulator Step-by-Step</h2>
@@ -501,8 +489,7 @@ export default function App() {
               )}
 
               {page === 'kalkulator' && (
-                <div className="p-6 rounded-3xl shadow-lg border-2 space-y-4 relative overflow-hidden" style={{ backgroundColor: '#FCF9EC', borderColor: '#00105B' }}>
-                  <div className="absolute top-2 right-2 text-xs font-mono font-bold text-indigo-700 opacity-20">J = Xmax - Xmin</div>
+                <div className="p-6 rounded-3xl shadow-lg border-2 space-y-4" style={{ backgroundColor: '#FCF9EC', borderColor: '#00105B' }}>
                   <div className="flex justify-between items-center">
                     <h2 className="text-2xl font-black" style={{ color: '#00105B' }}>Kalkulator Step-by-Step</h2>
                     <div className="flex gap-2">
@@ -579,8 +566,7 @@ export default function App() {
               )}
 
               {page === 'latihan' && (
-                <div className="p-6 rounded-3xl shadow-lg border-2 space-y-6 relative overflow-hidden" style={{ backgroundColor: '#FCF9EC', borderColor: '#00105B' }}>
-                  <div className="absolute top-2 right-2 text-xs font-mono font-bold text-indigo-700 opacity-20">SR = (Σ|xi - x̄|)/n</div>
+                <div className="p-6 rounded-3xl shadow-lg border-2 space-y-6" style={{ backgroundColor: '#FCF9EC', borderColor: '#00105B' }}>
                   <div className="flex justify-between items-center">
                     <h2 className="text-2xl font-black" style={{ color: '#00105B' }}>Latihan Soal (5 Soal) - Mode Fokus 🎧</h2>
                     <button onClick={() => setPage('posttest')} className="text-xs font-bold px-4 py-2.5 rounded-xl text-white shadow-md transition hover:opacity-95" style={{ backgroundColor: '#6061B6' }}>Lanjut Post-Test →</button>
@@ -613,8 +599,7 @@ export default function App() {
               )}
 
               {page === 'posttest' && (
-                <div className="p-6 rounded-3xl shadow-lg border-2 space-y-6 relative overflow-hidden" style={{ backgroundColor: '#FCF9EC', borderColor: '#00105B' }}>
-                  <div className="absolute top-2 right-2 text-xs font-mono font-bold text-indigo-700 opacity-20">S = √(Σ(x-x̄)²/n)</div>
+                <div className="p-6 rounded-3xl shadow-lg border-2 space-y-6" style={{ backgroundColor: '#FCF9EC', borderColor: '#00105B' }}>
                   <div className="flex justify-between items-center">
                     <div>
                       <h2 className="text-2xl font-black text-slate-900">Post-Test & Evaluasi - Mode Fokus 🎧</h2>
@@ -657,8 +642,7 @@ export default function App() {
               )}
 
               {page === 'evaluasi' && (
-                <div className="p-6 rounded-3xl shadow-lg border-2 space-y-6 relative overflow-hidden" style={{ backgroundColor: '#FCF9EC', borderColor: '#00105B' }}>
-                  <div className="absolute top-2 right-2 text-xs font-mono font-bold text-indigo-700 opacity-20">Σ(xi - x̄)²</div>
+                <div className="p-6 rounded-3xl shadow-lg border-2 space-y-6" style={{ backgroundColor: '#FCF9EC', borderColor: '#00105B' }}>
                   <div className="flex justify-between items-center border-b pb-4">
                     <div>
                       <h2 className="text-2xl font-black" style={{ color: '#00105B' }}>Preview Evaluasi Pengerjaan Soal</h2>
