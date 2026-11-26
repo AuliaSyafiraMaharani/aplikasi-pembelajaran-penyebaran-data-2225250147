@@ -280,6 +280,20 @@ export default function App() {
       setPostSubmitted(true);
     }
   };
+const [isChatOpen, setIsChatOpen] = useState(false);
+const [chatInput, setChatInput] = useState("");
+const [chatMessages, setChatMessages] = useState([
+  {
+    role: "assistant",
+    content: "Halo! Ada bagian penyebaran data yang mau kita bahas pelan-pelan?"
+  }
+]);
+const [isChatLoading, setIsChatLoading] = useState(false);
+const [chatError, setChatError] = useState("");
+
+const API_BASE_URL = (import.meta.env.VITE_API_URL || "").replace(/\/$/, "");
+
+async function handleSendChat(e) {
 
   return (
     <div className="relative min-h-screen text-slate-900 font-sans flex flex-col justify-between overflow-x-hidden antialiased tracking-wide">
@@ -818,6 +832,7 @@ export default function App() {
                       const userChoice = postAnswers[q.id];
                       const isCorrect = userChoice === q.answer;
                       return (
+                        
                         <div key={q.id} className={`p-4 rounded-2xl border-2 space-y-2 shadow-sm ${isCorrect ? 'bg-emerald-50/70 border-emerald-300' : 'bg-rose-50/70 border-rose-300'}`}>
                           <div className="flex justify-between items-center">
                             <span className="text-xs font-bold px-2.5 py-1 rounded-md bg-white border shadow-sm">Soal {idx + 1} • {q.indicator}</span>
@@ -854,20 +869,7 @@ export default function App() {
     </div>
   );
 }
-const [isChatOpen, setIsChatOpen] = useState(false);
-const [chatInput, setChatInput] = useState("");
-const [chatMessages, setChatMessages] = useState([
-  {
-    role: "assistant",
-    content: "Halo! Ada bagian penyebaran data yang mau kita bahas pelan-pelan?"
-  }
-]);
-const [isChatLoading, setIsChatLoading] = useState(false);
-const [chatError, setChatError] = useState("");
 
-const API_BASE_URL = (import.meta.env.VITE_API_URL || "http://localhost:3001").replace(/\/$/, "");
-
-async function handleSendChat(e) {
   e.preventDefault();
   const trimmed = chatInput.trim();
   if (!trimmed || isChatLoading) return;
