@@ -854,3 +854,123 @@ export default function App() {
     </div>
   );
 }
+const [isChatOpen, setIsChatOpen] = useState(false);
+const [chatInput, setChatInput] = useState("");
+const [chatMessages, setChatMessages] = useState([
+  {
+    role: "assistant",
+    content: "Halo! Ada bagian penyebaran data yang mau kita bahas pelan-pelan?"
+  }
+]);
+const [isChatLoading, setIsChatLoading] = useState(false);
+const [chatError, setChatError] = useState("");
+
+const API_BASE_URL = (import.meta.env.VITE_API_URL || "http://localhost:3001").replace(/\/$/, "");
+
+async function handleSendChat(e) {
+  e.preventDefault();
+  const trimmed = chatInput.trim();
+  if (!trimmed || isChatLoading) return;
+
+  const nextMessages = [...chatMessages, { role: "user", content: trimmed }].slice(-20);
+  setChatMessages(nextMessages);
+  setChatInput("");
+  setChatError("");
+  setIsChatLoading(true);
+
+  try {
+    const res = await fetch(`${API_BASE_URL}/api/chat`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        messages: nextMessages.map(({ role, content }) => ({ role, content }))
+      })
+    });
+
+    const data = await res.json();
+    if (!res.ok) {
+      throw new Error(data?.error || "Gagal menghubungi server AI.");
+    }
+
+    setChatMessages((prev) => [...prev, { role: "assistant", content: data.reply }].slice(-20));
+  } catch (err) {
+    setChatError(err.message || "Terjadi kesalahan koneksi.");
+  } finally {
+    setIsChatLoading(false);
+  }
+}
+<div className="fixed bottom-5 right-5 z-50">
+  {isChatOpen && (
+    <div className="mb-3 w-80 sm:w-96 rounded-2xl bg-white shadow-2xl border border-slate-200 overflow-hidden flex flex-col">
+      <div
+        className="px-4 py-3 text-white font-bold text-sm flex items-center justify-between"
+        style={{ backgroundColor: currentTheme?.primary || "#001058" }}
+      >
+        <span>Asisten Belajar AI</span>
+        <button
+          type="button"
+          onClick={() => setIsChatOpen(false)}
+          className="text-white/90 hover:text-white text-base leading-none px-1"
+          aria-label="Tutup chat"
+        >
+          ✕
+        </button>
+      </div>
+
+      <div className="p-3 h-72 overflow-y-auto space-y-2.5 bg-slate-50 text-xs">
+        {chatMessages.map((msg, i) => (
+          <div
+            key={i}
+            className={`max-w-[85%] rounded-xl px-3 py-2 whitespace-pre-line ${
+              msg.role === "user"
+                ? "ml-auto text-white"
+                : "bg-white text-slate-800 border border-slate-200 shadow-sm"
+            }`}
+            style={msg.role === "user" ? { backgroundColor: currentTheme?.secondary || "#606186" } : {}}
+          >
+            {msg.content}
+          </div>
+        ))}
+        {isChatLoading && (
+          <div className="bg-white text-slate-500 border border-slate-200 rounded-xl px-3 py-2 w-fit">
+            Sedang berpikir...
+          </div>
+        )}
+        {chatError && (
+          <div className="bg-rose-50 text-rose-700 border border-rose-200 rounded-xl px-3 py-2">
+            {chatError}
+          </div>
+        )}
+      </div>
+
+      <form onSubmit={handleSendChat} className="p-2.5 bg-white border-t border-slate-200 flex gap-2">
+        <input
+          type="text"
+          value={chatInput}
+          onChange={(e) => setChatInput(e.target.value)}
+          placeholder="Tanya soal penyebaran data..."
+          maxLength={2000}
+          className="flex-1 rounded-xl border border-slate-300 px-3 py-2 text-xs text-slate-800 focus:outline-none"
+        />
+        <button
+          type="submit"
+          disabled={isChatLoading || !chatInput.trim()}
+          className="rounded-xl px-3 py-2 text-xs font-bold text-white disabled:opacity-50"
+          style={{ backgroundColor: currentTheme?.primary || "#001058" }}
+        >
+          Kirim
+        </button>
+      </form>
+    </div>
+  )}
+
+  <button
+    type="button"
+    onClick={() => setIsChatOpen((prev) => !prev)}
+    className="ml-auto flex items-center gap-2 rounded-full px-4 py-3 text-xs font-bold text-white shadow-lg transition hover:scale-105"
+    style={{ backgroundColor: currentTheme?.primary || "#001058" }}
+  >
+    <Sparkles size={16} />
+    <span>{isChatOpen ? "Tutup AI" : "Tanya AI"}</span>
+  </button>
+</div>
